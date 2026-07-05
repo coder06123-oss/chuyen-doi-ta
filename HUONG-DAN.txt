@@ -1,0 +1,13 @@
+BẢN SỬA LỖI
+
+Tệp chính: to-tinh-sua-loi.html
+
+Đã sửa:
+- Thanh đường thành màu đen, chạy từ trái sang phải.
+- Nút dấu tích có nền cam nâu, dấu tích trắng rõ.
+- Bỏ trái tim CSS méo, thay bằng ký tự tim thật ♥.
+- Tim rơi liên tục từ đầu trang tới cảnh cuối.
+- Giữ nguyên ảnh nhân vật, album, lời tỏ tình và cảnh trái tim cuối.
+
+Lưu ý:
+- Giữ nguyên thư mục images và file trai-tim-scene.html cạnh file chính.

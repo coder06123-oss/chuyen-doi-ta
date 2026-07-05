@@ -1,0 +1,3844 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ead4bf" />
+  <title>Món quà bí mật</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap");
+    :root {
+      --bg: #ead4bf;
+      --bg-light: #f3e3d1;
+      --card: rgba(255, 249, 241, 0.88);
+      --card-strong: #fffaf4;
+      --brown: #5c341f;
+      --brown-soft: #98684c;
+      --accent: #d89a78;
+      --accent-dark: #c77f5d;
+      --line: #dfb994;
+      --shadow: 0 24px 70px rgba(102, 63, 35, 0.18);
+      --button-shadow: 0 9px 20px rgba(111, 70, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--brown);
+      background: var(--bg);
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .screen {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 48% 35%, rgba(255,255,255,.7), transparent 34%),
+        linear-gradient(135deg, var(--bg-light), var(--bg));
+    }
+
+    .paper-texture {
+      position: absolute;
+      inset: 0;
+      opacity: 0.36;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(107, 71, 43, 0.025) 0,
+          rgba(107, 71, 43, 0.025) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: multiply;
+    }
+
+    .decor {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .envelope {
+      width: 310px;
+      height: 185px;
+      left: -35px;
+      top: 35px;
+      transform: rotate(-9deg);
+      background: #efd4b8;
+      border-radius: 10px;
+      box-shadow: 0 16px 30px rgba(91, 55, 30, .12);
+    }
+
+    .envelope::before,
+    .envelope::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+    }
+
+    .envelope::before {
+      clip-path: polygon(0 0, 50% 57%, 100% 0);
+      background: #f5dfc8;
+    }
+
+    .envelope::after {
+      clip-path: polygon(0 100%, 50% 45%, 100% 100%);
+      background: #e6c5a5;
+    }
+
+    .envelope-heart {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      left: 132px;
+      top: 63px;
+      z-index: 2;
+      transform: rotate(45deg);
+      background: var(--accent);
+      border-radius: 9px 0 9px 9px;
+      box-shadow: 0 6px 14px rgba(148, 84, 49, .2);
+    }
+
+    .envelope-heart::before,
+    .envelope-heart::after {
+      content: "";
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .envelope-heart::before {
+      left: -21px;
+    }
+
+    .envelope-heart::after {
+      top: -21px;
+    }
+
+    .flowers {
+      right: 4%;
+      top: 3%;
+      width: 290px;
+      height: 330px;
+      opacity: .72;
+    }
+
+    .stem {
+      position: absolute;
+      width: 2px;
+      height: 295px;
+      right: 70px;
+      top: 5px;
+      background: #be8f5d;
+      transform-origin: bottom;
+      transform: rotate(-23deg);
+    }
+
+    .stem:nth-child(2) {
+      right: 120px;
+      height: 260px;
+      transform: rotate(-35deg);
+    }
+
+    .stem:nth-child(3) {
+      right: 34px;
+      height: 245px;
+      transform: rotate(-10deg);
+    }
+
+    .flower-dot {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #fff3dd;
+      box-shadow:
+        20px 12px 0 #fff6e8,
+        -17px 18px 0 #f9e8d1,
+        10px 34px 0 #fff8ec,
+        -28px 42px 0 #fff4e0;
+    }
+
+    .flower-dot.one { right: 45px; top: 18px; }
+    .flower-dot.two { right: 126px; top: 63px; }
+    .flower-dot.three { right: 12px; top: 96px; }
+
+    .ribbon {
+      left: -10px;
+      bottom: 5%;
+      width: 330px;
+      height: 150px;
+      opacity: .65;
+    }
+
+    .ribbon::before,
+    .ribbon::after {
+      content: "";
+      position: absolute;
+      border: 9px solid #d99572;
+      border-radius: 50%;
+    }
+
+    .ribbon::before {
+      width: 150px;
+      height: 70px;
+      left: 0;
+      top: 35px;
+      transform: rotate(16deg);
+    }
+
+    .ribbon::after {
+      width: 190px;
+      height: 85px;
+      left: 105px;
+      top: 20px;
+      transform: rotate(-13deg);
+    }
+
+    .note {
+      right: -25px;
+      bottom: 18px;
+      width: 260px;
+      height: 165px;
+      padding: 48px 38px;
+      background: #efd6bb;
+      clip-path: polygon(7% 8%, 97% 0, 100% 86%, 12% 100%, 0 22%);
+      transform: rotate(-5deg);
+      font-family: "Segoe Script", cursive;
+      font-size: 36px;
+      color: #7c4c33;
+      text-align: center;
+    }
+
+    .floating-heart {
+      width: 18px;
+      height: 18px;
+      transform: rotate(45deg);
+      background: rgba(214, 145, 110, .65);
+      border-radius: 5px 0 5px 5px;
+    }
+
+    .floating-heart::before,
+    .floating-heart::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .floating-heart::before { left: -9px; }
+    .floating-heart::after { top: -9px; }
+
+    .heart-a { left: 16%; top: 39%; }
+    .heart-b { left: 21%; bottom: 24%; transform: rotate(45deg) scale(1.25); }
+    .heart-c { right: 18%; top: 37%; transform: rotate(45deg) scale(.82); }
+
+    .card {
+      position: relative;
+      z-index: 3;
+      width: min(760px, 52vw);
+      min-width: 600px;
+      padding: 34px 46px 26px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 42px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .badge {
+      width: 66px;
+      height: 66px;
+      margin: 0 auto 8px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 24px rgba(157, 95, 60, .13);
+    }
+
+    .heart-icon {
+      width: 27px;
+      height: 27px;
+      position: relative;
+      transform: rotate(45deg);
+      border-radius: 7px 0 7px 7px;
+      background: linear-gradient(135deg, #f7a188, #e87869);
+    }
+
+    .heart-icon::before,
+    .heart-icon::after {
+      content: "";
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .heart-icon::before { left: -13.5px; }
+    .heart-icon::after { top: -13.5px; }
+
+    h1 {
+      margin: 5px 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 4.2vw, 64px);
+      font-weight: 500;
+      letter-spacing: .5px;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin: 4px auto 12px;
+      color: var(--line);
+    }
+
+    .ornament span {
+      display: block;
+      width: 44px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .subtitle {
+      margin: 0 0 19px;
+      font-size: 18px;
+      color: #6d4934;
+    }
+
+    .pin-display {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .pin-box {
+      width: 69px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(216, 166, 119, .7);
+      border-radius: 17px;
+      background: rgba(255,255,255,.24);
+      transition: .2s ease;
+    }
+
+    .pin-dot {
+      width: 15px;
+      height: 15px;
+      border: 2px solid #ddb188;
+      border-radius: 50%;
+      transition: .2s ease;
+    }
+
+    .pin-box.filled {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 16px rgba(197, 120, 79, .12);
+    }
+
+    .pin-box.filled .pin-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .keypad {
+      width: min(100%, 600px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 18px;
+    }
+
+    .key {
+      min-height: 64px;
+      border: 0;
+      border-radius: 18px;
+      color: var(--brown);
+      background: rgba(255, 252, 247, .92);
+      box-shadow: var(--button-shadow);
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 36px;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      touch-action: manipulation;
+    }
+
+    .key:hover {
+      background: #fff;
+      box-shadow: 0 12px 24px rgba(111, 70, 42, .16);
+    }
+
+    .key:active {
+      transform: scale(.96);
+      box-shadow: 0 4px 10px rgba(111, 70, 42, .12);
+    }
+
+    .delete-key {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 28px;
+    }
+
+    .confirm-key {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 30px;
+    }
+
+    .confirm-key:hover {
+      background: linear-gradient(135deg, #e0a17e, #c97e5b);
+    }
+
+    .message {
+      height: 24px;
+      margin: 14px 0 0;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .message.error {
+      color: #b4493d;
+    }
+
+    .message.success {
+      color: #7a7f45;
+    }
+
+    .footer-line {
+      margin-top: 8px;
+      color: #bd7a56;
+      font-family: "Segoe Script", cursive;
+      font-size: 20px;
+    }
+
+    .shake {
+      animation: shake .42s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-9px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(5px); }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 48% 35%, rgba(255,255,255,.7), transparent 34%),
+        linear-gradient(135deg, var(--bg-light), var(--bg));
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .75s ease, visibility .75s ease;
+    }
+
+    .loading-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .36;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(107, 71, 43, 0.025) 0,
+          rgba(107, 71, 43, 0.025) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: multiply;
+    }
+
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loader-content {
+      position: relative;
+      z-index: 2;
+      width: min(660px, 82vw);
+      text-align: center;
+      animation: loaderAppear .8s ease both;
+    }
+
+    .love-loader {
+      --progress: 0%;
+      position: relative;
+      width: 100%;
+      padding-top: 64px;
+    }
+
+    .progress-frame {
+      position: relative;
+      height: 62px;
+      padding: 5px;
+      overflow: visible;
+      border: 4px solid #655b57;
+      background: rgba(255, 252, 248, .96);
+      box-shadow: 0 9px 24px rgba(105, 64, 39, .12);
+    }
+
+    .progress-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: rgba(255,255,255,.82);
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--progress);
+      background: #f06f78;
+      transition: width .08s linear;
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.28) 48%, transparent 68%);
+      transform: translateX(-110%);
+      animation: shine 1.35s linear infinite;
+    }
+
+    .progress-label {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      color: #493d39;
+      font-size: clamp(18px, 2.2vw, 25px);
+      font-weight: 800;
+      text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    }
+
+    /* Các trái tim mốc: 0%, 50%, 100%. Dùng SVG để giữ đúng hình trái tim. */
+    .checkpoint-heart {
+      position: absolute;
+      z-index: 5;
+      top: 8px;
+      width: 44px;
+      height: 58px;
+      transform: translateX(-50%) scale(.2);
+      transform-origin: 50% 78%;
+      opacity: 0;
+      filter: drop-shadow(0 4px 3px rgba(99, 65, 50, .16));
+      transition: opacity .22s ease, transform .35s cubic-bezier(.2, 1.45, .4, 1);
+      pointer-events: none;
+    }
+
+    .checkpoint-heart.start { left: 0; }
+    .checkpoint-heart.middle { left: 50%; }
+    .checkpoint-heart.end { left: 100%; }
+
+    .checkpoint-heart.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .checkpoint-heart svg {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 43px;
+      height: 43px;
+      transform: translateX(-50%);
+      overflow: visible;
+    }
+
+    .checkpoint-stem {
+      position: absolute;
+      left: 50%;
+      top: 36px;
+      width: 4px;
+      height: 28px;
+      transform: translateX(-50%);
+      border-radius: 3px;
+      background: #655b57;
+    }
+
+    /* Ô chat hồng đỏ có trái tim trắng là phần duy nhất di chuyển. */
+    .love-bubble {
+      position: absolute;
+      z-index: 8;
+      left: 27px;
+      top: 8px;
+      width: 58px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      transform: translateX(-50%);
+      border-radius: 14px;
+      background: #f06f78;
+      box-shadow: 0 7px 13px rgba(143, 73, 65, .24);
+      transition: left .08s linear;
+      animation: bubbleFloat 1.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .love-bubble::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      bottom: -8px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #f06f78;
+      border-right: 9px solid transparent;
+      transform: rotate(3deg);
+    }
+
+    .love-bubble svg {
+      width: 27px;
+      height: 27px;
+      overflow: visible;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,.15));
+    }
+
+    .loading-caption {
+      margin: 24px 0 0;
+      min-height: 34px;
+      color: #f06f78;
+      font-size: clamp(19px, 2.15vw, 28px);
+      font-weight: 900;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(175, 91, 84, .12);
+    }
+
+    .caption-heart {
+      display: inline-block;
+      margin-left: 4px;
+      animation: captionHeartBeat 1s ease-in-out infinite;
+    }
+
+    .loading-caption .dots::after {
+      content: "";
+      display: inline-block;
+      min-width: 45px;
+      text-align: left;
+      animation: loadingDots 1.15s steps(4, end) infinite;
+    }
+
+    .loader-spark {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(240, 111, 120, .42);
+      animation: sparkFloat 4s ease-in-out infinite;
+    }
+
+    .loader-spark.s1 { left: 9%; top: 23%; animation-delay: -.7s; }
+    .loader-spark.s2 { right: 12%; top: 30%; width: 8px; height: 8px; animation-delay: -1.6s; }
+    .loader-spark.s3 { left: 17%; bottom: 20%; width: 9px; height: 9px; animation-delay: -2.2s; }
+    .loader-spark.s4 { right: 20%; bottom: 17%; animation-delay: -3.1s; }
+
+    @keyframes loaderAppear {
+      from { opacity: 0; transform: translateY(28px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes shine {
+      to { transform: translateX(110%); }
+    }
+
+    @keyframes bubbleFloat {
+      0%, 100% { margin-top: 0; }
+      50% { margin-top: -6px; }
+    }
+
+    @keyframes loadingDots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75%, 100% { content: "..."; }
+    }
+
+    @keyframes captionHeartBeat {
+      0%, 100% { transform: scale(1); }
+      45% { transform: scale(1.22); }
+    }
+
+    @keyframes sparkFloat {
+      0%, 100% { transform: translateY(0) scale(.85); opacity: .25; }
+      50% { transform: translateY(-24px) scale(1.15); opacity: .68; }
+    }
+
+    @media (max-width: 900px) {
+      .screen {
+        padding: 18px 14px;
+      }
+
+      .card {
+        width: min(94vw, 520px);
+        min-width: 0;
+        padding: 26px 20px 22px;
+        border-radius: 30px;
+      }
+
+      h1 {
+        font-size: clamp(38px, 10vw, 52px);
+      }
+
+      .subtitle {
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .pin-display {
+        gap: 8px;
+      }
+
+      .pin-box {
+        width: 48px;
+        height: 50px;
+        border-radius: 14px;
+      }
+
+      .keypad {
+        gap: 10px;
+      }
+
+      .key {
+        min-height: 58px;
+        font-size: 30px;
+      }
+
+      .flowers {
+        width: 180px;
+        height: 220px;
+        right: -60px;
+        opacity: .42;
+      }
+
+      .envelope {
+        width: 210px;
+        height: 128px;
+        left: -90px;
+        top: 22px;
+        opacity: .48;
+      }
+
+      .envelope-heart {
+        left: 90px;
+        top: 41px;
+        transform: rotate(45deg) scale(.72);
+      }
+
+      .ribbon {
+        left: -110px;
+        bottom: 1%;
+        transform: scale(.72);
+        opacity: .35;
+      }
+
+      .note {
+        width: 165px;
+        height: 105px;
+        right: -55px;
+        bottom: 8px;
+        padding: 30px 20px;
+        font-size: 23px;
+        opacity: .45;
+      }
+
+      .heart-a,
+      .heart-b,
+      .heart-c {
+        opacity: .4;
+      }
+
+      .footer-line {
+        font-size: 17px;
+      }
+
+      .loader-content {
+        width: min(92vw, 570px);
+      }
+
+      .love-loader {
+        padding-top: 56px;
+      }
+
+      .progress-frame {
+        height: 56px;
+        border-width: 3px;
+        padding: 4px;
+      }
+
+      .checkpoint-heart {
+        top: 7px;
+        width: 38px;
+        height: 52px;
+      }
+
+      .checkpoint-heart svg {
+        width: 37px;
+        height: 37px;
+      }
+
+      .checkpoint-stem {
+        top: 31px;
+        width: 3px;
+        height: 26px;
+      }
+
+      .love-bubble {
+        top: 4px;
+        width: 52px;
+        height: 42px;
+        border-radius: 12px;
+      }
+
+      .love-bubble svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .loading-caption {
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-height: 760px) and (min-width: 700px) {
+      .card {
+        padding-top: 22px;
+        padding-bottom: 18px;
+        transform: scale(.92);
+      }
+
+      .badge {
+        width: 54px;
+        height: 54px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .key {
+        min-height: 54px;
+        font-size: 31px;
+      }
+
+      .pin-box {
+        height: 55px;
+      }
+    }
+
+    /* ===== CẢNH XE MÁY + ALBUM 15 KỶ NIỆM ===== */
+    .story-scene {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.86), transparent 41%),
+        linear-gradient(180deg, #f7eadf 0%, #ead4bf 66%, #dfbea2 100%);
+      transition: opacity .85s ease, visibility .85s ease;
+    }
+
+    .story-scene.show {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .story-scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .25;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        0deg,
+        rgba(107,71,43,.025) 0,
+        rgba(107,71,43,.025) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    }
+
+    .scene-cloud {
+      position: absolute;
+      width: clamp(90px, 12vw, 170px);
+      height: clamp(28px, 4vw, 54px);
+      border-radius: 999px;
+      background: rgba(255,255,255,.42);
+      animation: cloudDrift 15s ease-in-out infinite alternate;
+    }
+
+    .scene-cloud::before,
+    .scene-cloud::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .scene-cloud::before {
+      width: 48%;
+      aspect-ratio: 1;
+      left: 13%;
+      bottom: 15%;
+    }
+
+    .scene-cloud::after {
+      width: 36%;
+      aspect-ratio: 1;
+      right: 15%;
+      bottom: 18%;
+    }
+
+    .scene-cloud.one { left: 7%; top: 13%; }
+    .scene-cloud.two { right: 8%; top: 21%; transform: scale(.72); animation-delay: -7s; }
+
+    .road-ground {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 24vh;
+      min-height: 145px;
+      border-top: 3px solid rgba(101,70,50,.28);
+      background: linear-gradient(180deg, rgba(171,128,94,.14), rgba(134,93,65,.23));
+    }
+
+    .road-ground::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 48%;
+      height: 8px;
+      opacity: .9;
+      background: repeating-linear-gradient(90deg, #fff5e8 0 100px, transparent 100px 155px);
+    }
+
+    /* Khoảng 60% kích thước cũ */
+    .girlfriend-character {
+      position: absolute;
+      z-index: 8;
+      left: clamp(20px, 4vw, 75px);
+      bottom: clamp(76px, 11vh, 118px);
+      width: clamp(76px, 10.2vw, 147px);
+      max-height: 45vh;
+      object-fit: contain;
+      opacity: 0;
+      transform: translateX(-45px) scale(.96);
+      filter: drop-shadow(0 14px 11px rgba(81,53,36,.16));
+      transition: opacity .8s ease, transform .9s cubic-bezier(.19,.9,.3,1);
+    }
+
+    .girlfriend-character.show {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      animation: girlfriendIdle 2.4s ease-in-out infinite;
+    }
+
+    .girlfriend-character.boarded {
+      opacity: 0;
+      transform: translateX(18px) scale(.86);
+      animation: none;
+    }
+
+    .vehicle {
+      position: absolute;
+      z-index: 9;
+      left: 0;
+      bottom: clamp(58px, 8vh, 92px);
+      will-change: transform, opacity;
+    }
+
+    .vehicle img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 14px 11px rgba(75,47,30,.18));
+    }
+
+    .boy-vehicle {
+      width: clamp(168px, 22.2vw, 342px);
+      transform: translate3d(112vw,0,0);
+    }
+
+    .boy-vehicle.enter { animation: boyRideIn 2.75s cubic-bezier(.14,.76,.28,1) forwards; }
+    .boy-vehicle.enter img { animation: bikeIdle .58s ease-in-out infinite alternate; }
+    .boy-vehicle.pickup { animation: boyRideToPickup 2.85s cubic-bezier(.45,.02,.22,1) forwards; }
+    .boy-vehicle.hidden { opacity: 0; transition: opacity .24s ease; }
+
+    .couple-vehicle {
+      width: clamp(180px, 23.4vw, 360px);
+      opacity: 0;
+      transform: translate3d(7vw,0,0);
+    }
+
+    .couple-vehicle img { transform: scaleX(-1); transform-origin: center; }
+    .couple-vehicle.show { opacity: 1; transition: opacity .4s ease; }
+    .couple-vehicle.show img { animation: bikeIdle .58s ease-in-out infinite alternate; }
+    .couple-vehicle.leave { animation: coupleRideAway 3.25s cubic-bezier(.34,.05,.35,1) forwards; }
+
+    /* Album 15 cảnh nằm giữa hai nhân vật */
+    .memory-album {
+      position: absolute;
+      z-index: 14;
+      left: 50%;
+      top: 47%;
+      width: min(650px, 48vw);
+      max-height: 83vh;
+      padding: clamp(13px, 1.5vw, 22px);
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 30px;
+      background: rgba(255,249,241,.92);
+      box-shadow: 0 24px 70px rgba(91,56,34,.18);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -46%) scale(.94);
+      transition: opacity .65s ease, visibility .65s ease, transform .65s cubic-bezier(.2,.85,.25,1);
+      backdrop-filter: blur(9px);
+    }
+
+    .memory-album.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .memory-album.hiding {
+      opacity: 0;
+      transform: translate(-50%, -52%) scale(.94);
+      pointer-events: none;
+    }
+
+    .album-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 0 3px 12px;
+    }
+
+    .album-label {
+      color: #784a31;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 1.65vw, 26px);
+      font-weight: 700;
+    }
+
+    .scene-counter {
+      flex: 0 0 auto;
+      min-width: 70px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #f0d6c2;
+      color: #815138;
+      font-size: clamp(12px, 1vw, 15px);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .memory-content {
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .memory-content.switching-left { opacity: 0; transform: translateX(-18px); }
+    .memory-content.switching-right { opacity: 0; transform: translateX(18px); }
+
+    .memory-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 8px solid #fffdf9;
+      border-radius: 21px;
+      background: #ead2bd;
+      box-shadow: 0 10px 28px rgba(93,56,35,.13), inset 0 0 0 1px rgba(126,82,52,.12);
+    }
+
+    .memory-photo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform .7s ease;
+    }
+
+    .memory-album:hover .memory-photo { transform: scale(1.018); }
+
+    .photo-tape {
+      position: absolute;
+      z-index: 2;
+      top: -7px;
+      left: 50%;
+      width: 104px;
+      height: 30px;
+      border: 1px solid rgba(164,118,83,.18);
+      background: rgba(231,194,158,.69);
+      box-shadow: 0 4px 10px rgba(93,56,35,.08);
+      transform: translateX(-50%) rotate(-2deg);
+    }
+
+    .memory-text {
+      min-height: 91px;
+      padding: 13px 6px 3px;
+      text-align: center;
+    }
+
+    .memory-title {
+      margin: 0 0 7px;
+      color: #68402b;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(19px, 1.75vw, 28px);
+      line-height: 1.2;
+    }
+
+    .memory-message {
+      margin: 0 auto;
+      max-width: 92%;
+      color: #8b6048;
+      font-size: clamp(13px, 1.08vw, 17px);
+      line-height: 1.55;
+      white-space: pre-line;
+    }
+
+    .album-controls {
+      display: grid;
+      grid-template-columns: 58px 1fr 58px;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .album-arrow {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(145deg, #df9b7b, #c97d5e);
+      box-shadow: 0 9px 19px rgba(123,73,46,.2);
+      cursor: pointer;
+      font-size: 30px;
+      font-weight: 800;
+      transition: transform .16s ease, opacity .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+    }
+
+    .album-arrow:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.035);
+      box-shadow: 0 12px 23px rgba(123,73,46,.25);
+    }
+
+    .album-arrow:active:not(:disabled) { transform: scale(.93); }
+    .album-arrow:disabled { opacity: .28; cursor: not-allowed; box-shadow: none; }
+
+    .album-hint {
+      color: #b07455;
+      font-family: "Segoe Script", cursive;
+      font-size: clamp(14px, 1.25vw, 19px);
+      text-align: center;
+    }
+
+    .heart-burst {
+      position: absolute;
+      z-index: 16;
+      left: clamp(100px, 18vw, 300px);
+      bottom: clamp(190px, 31vh, 330px);
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .heart-particle {
+      position: absolute;
+      color: #ed7881;
+      font-size: var(--size);
+      opacity: 0;
+      animation: heartPop 1.65s ease-out forwards;
+      animation-delay: var(--delay);
+    }
+
+    .scene-end-card {
+      position: absolute;
+      z-index: 18;
+      left: 50%;
+      top: 42%;
+      width: min(610px, 84vw);
+      padding: 28px 34px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 30px;
+      background: rgba(255,249,241,.88);
+      box-shadow: 0 22px 65px rgba(100,63,39,.16);
+      color: #623d29;
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 3vw, 42px);
+      transform: translate(-50%, -35%) scale(.92);
+      opacity: 0;
+      visibility: hidden;
+      backdrop-filter: blur(9px);
+      transition: opacity .7s ease, transform .7s ease, visibility .7s ease;
+    }
+
+    .scene-end-card.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .scene-end-card small {
+      display: block;
+      margin-top: 12px;
+      color: #a46e50;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(14px, 1.4vw, 18px);
+    }
+
+    @keyframes boyRideIn {
+      0% { transform: translate3d(112vw,0,0); }
+      72% { transform: translate3d(78vw,-2px,0); }
+      87% { transform: translate3d(75vw,1px,0); }
+      100% { transform: translate3d(76vw,0,0); }
+    }
+
+    @keyframes boyRideToPickup {
+      0% { transform: translate3d(76vw,0,0); }
+      68% { transform: translate3d(9vw,-2px,0); }
+      84% { transform: translate3d(6vw,1px,0); }
+      100% { transform: translate3d(7vw,0,0); }
+    }
+
+    @keyframes coupleRideAway {
+      0% { transform: translate3d(7vw,0,0); }
+      10% { transform: translate3d(6vw,1px,0); }
+      100% { transform: translate3d(112vw,0,0); }
+    }
+
+    @keyframes bikeIdle {
+      from { translate: 0 0; rotate: -.2deg; }
+      to { translate: 0 -2px; rotate: .2deg; }
+    }
+
+    @keyframes girlfriendIdle {
+      0%,100% { translate: 0 0; }
+      50% { translate: 0 -3px; }
+    }
+
+    @keyframes heartPop {
+      0% { opacity: 0; transform: translate(0,0) scale(.35); }
+      18% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--move-x),var(--move-y)) scale(1.1) rotate(var(--rotate)); }
+    }
+
+    @keyframes cloudDrift {
+      from { translate: -10px 0; }
+      to { translate: 20px 4px; }
+    }
+
+    @media (max-width: 760px) {
+      .road-ground { height: 22vh; min-height: 125px; }
+      .road-ground::before { height: 6px; background: repeating-linear-gradient(90deg,#fff5e8 0 54px,transparent 54px 88px); }
+
+      .girlfriend-character {
+        left: 3vw;
+        bottom: 13vh;
+        width: clamp(63px, 17vw, 93px);
+        max-height: 37vh;
+      }
+
+      .vehicle { bottom: 10vh; }
+      .boy-vehicle { width: clamp(158px, 42vw, 220px); }
+      .couple-vehicle { width: clamp(168px, 45vw, 235px); transform: translate3d(4vw,0,0); }
+
+      .memory-album {
+        top: 43%;
+        width: min(92vw, 560px);
+        max-height: 75vh;
+        padding: 12px;
+        border-radius: 23px;
+      }
+
+      .album-heading { margin-bottom: 8px; }
+      .memory-photo-wrap { border-width: 5px; border-radius: 16px; }
+      .memory-text { min-height: 82px; padding-top: 10px; }
+      .album-controls { grid-template-columns: 48px 1fr 48px; gap: 8px; margin-top: 5px; }
+      .album-arrow { width: 45px; height: 45px; font-size: 25px; }
+      .heart-burst { left: 22vw; bottom: 30vh; }
+
+      @keyframes boyRideIn {
+        0% { transform: translate3d(112vw,0,0); }
+        72% { transform: translate3d(61vw,-2px,0); }
+        87% { transform: translate3d(58vw,1px,0); }
+        100% { transform: translate3d(59vw,0,0); }
+      }
+
+      @keyframes boyRideToPickup {
+        0% { transform: translate3d(59vw,0,0); }
+        72% { transform: translate3d(6vw,-2px,0); }
+        88% { transform: translate3d(3vw,1px,0); }
+        100% { transform: translate3d(4vw,0,0); }
+      }
+
+      @keyframes coupleRideAway {
+        0% { transform: translate3d(4vw,0,0); }
+        12% { transform: translate3d(3vw,1px,0); }
+        100% { transform: translate3d(112vw,0,0); }
+      }
+    }
+
+    @media (max-height: 650px) and (orientation: landscape) {
+      .memory-album { top: 47%; width: min(570px, 49vw); padding: 10px 13px; }
+      .memory-photo-wrap { aspect-ratio: 16 / 8.2; }
+      .memory-text { min-height: 62px; padding-top: 8px; }
+      .memory-title { margin-bottom: 3px; }
+      .album-controls { margin-top: 2px; }
+      .girlfriend-character { bottom: 10vh; }
+      .vehicle { bottom: 7vh; }
+    }
+
+    /* ==========================================================
+       BẢN 17 KHUNG:
+       - 01 khung chữ mở đầu
+       - 15 khung ảnh kỷ niệm
+       - 01 khung chữ kết thúc
+       ========================================================== */
+
+    .memory-album {
+      top: 46%;
+      width: min(920px, 66vw);
+      max-height: 91vh;
+      padding: clamp(15px, 1.65vw, 25px);
+      border-radius: 34px;
+    }
+
+    .album-label { font-size: clamp(20px, 1.85vw, 30px); }
+
+    .scene-counter {
+      min-width: 82px;
+      padding: 8px 14px;
+      font-size: clamp(13px, 1.08vw, 17px);
+    }
+
+    .memory-photo-wrap {
+      aspect-ratio: 16 / 9;
+      border-width: 9px;
+      border-radius: 24px;
+    }
+
+    .memory-text {
+      min-height: 104px;
+      padding: 15px 9px 4px;
+    }
+
+    .memory-title { font-size: clamp(22px, 2vw, 33px); }
+
+    .memory-message {
+      max-width: 95%;
+      font-size: clamp(15px, 1.22vw, 20px);
+      line-height: 1.62;
+    }
+
+    .album-controls {
+      grid-template-columns: 64px 1fr 64px;
+      gap: 17px;
+      margin-top: 12px;
+    }
+
+    .album-arrow {
+      width: 60px;
+      height: 60px;
+      font-size: 34px;
+    }
+
+    .album-hint { font-size: clamp(15px, 1.35vw, 21px); }
+
+    .text-only-panel {
+      position: relative;
+      min-height: clamp(330px, 49vh, 510px);
+      display: none;
+      place-items: center;
+      overflow: hidden;
+      padding: clamp(32px, 5vw, 78px);
+      border: 2px solid rgba(210, 157, 118, .7);
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.92), rgba(255,246,237,.72)),
+        linear-gradient(145deg, #fffaf5, #efd7c2);
+      box-shadow:
+        0 13px 34px rgba(93,56,35,.14),
+        inset 0 0 0 8px rgba(255,255,255,.48);
+      text-align: center;
+    }
+
+    .text-only-panel::before,
+    .text-only-panel::after {
+      content: "♥";
+      position: absolute;
+      color: rgba(224, 133, 120, .42);
+      font-size: clamp(36px, 5vw, 78px);
+      line-height: 1;
+    }
+
+    .text-only-panel::before {
+      left: clamp(18px, 3vw, 48px);
+      top: clamp(18px, 3vw, 43px);
+      transform: rotate(-13deg);
+    }
+
+    .text-only-panel::after {
+      right: clamp(18px, 3vw, 48px);
+      bottom: clamp(18px, 3vw, 43px);
+      transform: rotate(13deg);
+    }
+
+    .memory-content.is-text-scene .memory-photo-wrap,
+    .memory-content.is-text-scene .memory-text { display: none; }
+
+    .memory-content.is-text-scene .text-only-panel { display: grid; }
+
+    .text-scene-inner {
+      position: relative;
+      z-index: 2;
+      width: min(760px, 90%);
+    }
+
+    .text-scene-kicker {
+      margin-bottom: 16px;
+      color: #ce8068;
+      font-size: clamp(15px, 1.3vw, 20px);
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .text-scene-title {
+      margin: 0 0 18px;
+      color: #603922;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(31px, 4vw, 60px);
+      font-weight: 500;
+      line-height: 1.18;
+    }
+
+    .text-scene-message {
+      margin: 0 auto;
+      max-width: 92%;
+      color: #865b43;
+      font-size: clamp(18px, 1.75vw, 27px);
+      line-height: 1.72;
+      white-space: pre-line;
+    }
+
+    @media (max-width: 760px) {
+      .memory-album {
+        top: 42%;
+        width: 96vw;
+        max-height: 82vh;
+        padding: 11px;
+        border-radius: 24px;
+      }
+
+      .album-heading {
+        gap: 8px;
+        margin: 0 2px 8px;
+      }
+
+      .album-label { font-size: clamp(17px, 4.6vw, 23px); }
+
+      .scene-counter {
+        min-width: 68px;
+        padding: 6px 9px;
+        font-size: 12px;
+      }
+
+      .memory-photo-wrap {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-width: 5px;
+        border-radius: 17px;
+      }
+
+      .memory-text {
+        min-height: 91px;
+        padding: 10px 5px 2px;
+      }
+
+      .memory-title {
+        margin-bottom: 5px;
+        font-size: clamp(20px, 5.8vw, 27px);
+      }
+
+      .memory-message {
+        max-width: 98%;
+        font-size: clamp(14px, 3.8vw, 17px);
+        line-height: 1.48;
+      }
+
+      .album-controls {
+        grid-template-columns: 50px 1fr 50px;
+        gap: 7px;
+        margin-top: 6px;
+      }
+
+      .album-arrow {
+        width: 48px;
+        height: 48px;
+        font-size: 27px;
+      }
+
+      .album-hint { font-size: clamp(13px, 3.6vw, 17px); }
+
+      .text-only-panel {
+        min-height: min(54vh, 440px);
+        padding: 30px 18px;
+        border-radius: 18px;
+        box-shadow:
+          0 10px 25px rgba(93,56,35,.13),
+          inset 0 0 0 5px rgba(255,255,255,.44);
+      }
+
+      .text-scene-inner { width: 96%; }
+
+      .text-scene-kicker {
+        margin-bottom: 11px;
+        font-size: clamp(12px, 3.5vw, 16px);
+      }
+
+      .text-scene-title {
+        margin-bottom: 13px;
+        font-size: clamp(28px, 8vw, 43px);
+      }
+
+      .text-scene-message {
+        max-width: 100%;
+        font-size: clamp(16px, 4.5vw, 21px);
+        line-height: 1.58;
+      }
+
+      .girlfriend-character {
+        bottom: 8vh;
+        width: clamp(55px, 14vw, 78px);
+      }
+
+      .vehicle { bottom: 6vh; }
+      .boy-vehicle { width: clamp(140px, 37vw, 195px); }
+      .couple-vehicle { width: clamp(150px, 40vw, 210px); }
+    }
+
+    @media (max-width: 480px) and (orientation: portrait) {
+      .memory-album {
+        top: 40%;
+        width: 97vw;
+        max-height: 78vh;
+      }
+
+      .album-label {
+        max-width: 69%;
+        line-height: 1.15;
+      }
+
+      .memory-photo-wrap { aspect-ratio: 4 / 3; }
+      .memory-photo { object-position: center; }
+      .text-only-panel { min-height: 48vh; }
+    }
+
+    @media (max-height: 650px) and (orientation: landscape) {
+      .memory-album {
+        top: 47%;
+        width: min(790px, 66vw);
+        max-height: 94vh;
+        padding: 9px 13px;
+      }
+
+      .memory-photo-wrap { aspect-ratio: 16 / 7.4; }
+
+      .memory-text {
+        min-height: 57px;
+        padding-top: 7px;
+      }
+
+      .text-only-panel {
+        min-height: 58vh;
+        padding: 22px 40px;
+      }
+
+      .album-arrow {
+        width: 45px;
+        height: 45px;
+      }
+
+      .album-controls {
+        grid-template-columns: 48px 1fr 48px;
+        margin-top: 2px;
+      }
+    }
+
+
+    /* ==========================================================
+       KHUNG 17 - TỎ TÌNH 5 NHỊP
+       ========================================================== */
+
+    .text-scene-inner {
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .text-scene-inner.beat-change {
+      opacity: 0;
+      transform: translateY(10px) scale(.98);
+    }
+
+    .proposal-actions {
+      position: relative;
+      width: min(430px, 100%);
+      height: 96px;
+      margin: 24px auto 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .45s ease, transform .45s ease, visibility .45s ease;
+    }
+
+    .proposal-actions.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .proposal-choice {
+      position: absolute;
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      line-height: 1;
+      background: transparent;
+      transition: transform .15s ease, filter .15s ease, opacity .15s ease;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .proposal-choice:hover {
+      transform: scale(1.05);
+      filter: brightness(1.03);
+    }
+
+    .proposal-choice:active {
+      transform: scale(.97);
+    }
+
+    .proposal-accept {
+      left: 7%;
+      top: 15px;
+      padding: 13px 18px;
+      color: #2d9f56;
+      font-size: clamp(29px, 2.6vw, 44px);
+      text-shadow: 0 3px 10px rgba(45,159,86,.12);
+    }
+
+    .proposal-reject {
+      left: 67%;
+      top: 51px;
+      padding: 6px 10px;
+      color: #d25454;
+      font-size: clamp(15px, 1.35vw, 22px);
+      opacity: .92;
+    }
+
+    .proposal-note {
+      margin-top: 10px;
+      color: #b67a5a;
+      font-family: "Segoe Script", cursive;
+      font-size: clamp(14px, 1.15vw, 18px);
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease;
+    }
+
+    .proposal-note.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 760px) {
+      .proposal-actions {
+        width: min(320px, 96%);
+        height: 88px;
+        margin-top: 18px;
+      }
+
+      .proposal-accept {
+        left: 4%;
+        top: 10px;
+        padding: 10px 14px;
+        font-size: clamp(25px, 7vw, 34px);
+      }
+
+      .proposal-reject {
+        left: 64%;
+        top: 47px;
+        padding: 4px 8px;
+        font-size: clamp(14px, 3.6vw, 18px);
+      }
+
+      .proposal-note {
+        font-size: clamp(13px, 3.3vw, 16px);
+      }
+    }
+
+
+    /* ==========================================================
+       TINH CHỈNH KHUNG 17 + CẢNH TRÁI TIM SAU KHI ĐỒNG Ý
+       ========================================================== */
+
+    .proposal-accept,
+    .proposal-reject {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.74);
+      box-shadow: 0 10px 24px rgba(70, 32, 22, .18);
+      white-space: nowrap;
+    }
+
+    .proposal-accept {
+      left: 4%;
+      top: 10px;
+      min-width: 190px;
+      min-height: 60px;
+      padding: 12px 24px;
+      color: #ffffff;
+      background: linear-gradient(180deg, #42c66d 0%, #2eae57 100%);
+      font-size: clamp(29px, 2.6vw, 42px);
+      text-shadow: 0 1px 0 rgba(0,0,0,.12);
+      z-index: 2;
+    }
+
+    .proposal-reject {
+      left: 68%;
+      top: 50px;
+      min-width: 92px;
+      min-height: 38px;
+      padding: 7px 14px;
+      color: #ffffff;
+      background: linear-gradient(180deg, #ef7474 0%, #d24e4e 100%);
+      font-size: clamp(14px, 1.2vw, 20px);
+      text-shadow: 0 1px 0 rgba(0,0,0,.14);
+      z-index: 3;
+    }
+
+    .proposal-note {
+      margin-top: 14px;
+    }
+
+    .proposal-heart-scene {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .7s ease, visibility .7s ease;
+      background: #000;
+    }
+
+    .proposal-heart-scene.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .proposal-heart-scene.fade-out {
+      opacity: 0;
+    }
+
+    .proposal-heart-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    @media (max-width: 760px) {
+      .proposal-accept {
+        left: 2%;
+        top: 8px;
+        min-width: 162px;
+        min-height: 54px;
+        padding: 10px 20px;
+        font-size: clamp(24px, 6.4vw, 33px);
+      }
+
+      .proposal-reject {
+        left: 70%;
+        top: 50px;
+        min-width: 84px;
+        min-height: 34px;
+        padding: 6px 12px;
+        font-size: clamp(13px, 3.2vw, 17px);
+      }
+    }
+
+
+    /* ==========================================================
+       PHIÊN BẢN CUỐI:
+       - Đón người yêu trước, trái tim xuất hiện sau và chạy mãi.
+       - Nút Từ chối chạy xa, không lặp vị trí cũ và không đè nút Đồng ý.
+       ========================================================== */
+
+    .proposal-reject.runaway {
+      position: fixed !important;
+      z-index: 120 !important;
+      margin: 0 !important;
+      transition:
+        left .18s cubic-bezier(.2,.85,.25,1),
+        top .18s cubic-bezier(.2,.85,.25,1),
+        transform .12s ease !important;
+    }
+
+    .proposal-heart-scene {
+      transition: opacity .85s ease, visibility .85s ease;
+    }
+
+    .proposal-heart-scene.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+
+    /* ==========================================================
+       BẢN TỐI ƯU ĐỂ XEM RÕ TRÊN ĐIỆN THOẠI
+       - Album lớn hơn
+       - Ảnh lớn hơn
+       - Chữ của toàn bộ 17 khung lớn và dễ đọc hơn
+       ========================================================== */
+
+    .memory-album {
+      width: min(1040px, 74vw);
+      max-height: 94svh;
+      padding: clamp(18px, 1.8vw, 28px);
+    }
+
+    .album-label {
+      font-size: clamp(23px, 2vw, 34px);
+      line-height: 1.2;
+    }
+
+    .scene-counter {
+      min-width: 88px;
+      font-size: clamp(15px, 1.15vw, 19px);
+    }
+
+    .memory-photo-wrap {
+      border-width: 9px;
+      border-radius: 25px;
+    }
+
+    .memory-title {
+      font-size: clamp(26px, 2.25vw, 38px);
+      line-height: 1.22;
+    }
+
+    .memory-message {
+      font-size: clamp(18px, 1.4vw, 23px);
+      line-height: 1.65;
+    }
+
+    .text-scene-kicker {
+      font-size: clamp(17px, 1.45vw, 23px);
+    }
+
+    .text-scene-title {
+      font-size: clamp(38px, 4.4vw, 68px);
+      line-height: 1.18;
+    }
+
+    .text-scene-message {
+      font-size: clamp(22px, 2vw, 31px);
+      line-height: 1.68;
+    }
+
+    .album-hint {
+      font-size: clamp(17px, 1.45vw, 23px);
+    }
+
+    @media (max-width: 760px) {
+      .memory-album {
+        top: 48%;
+        width: 98vw;
+        max-height: 96svh;
+        padding: 13px;
+        border-radius: 25px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: none;
+      }
+
+      .memory-album::-webkit-scrollbar {
+        display: none;
+      }
+
+      .album-heading {
+        gap: 9px;
+        margin: 1px 3px 10px;
+      }
+
+      .album-label {
+        max-width: 76%;
+        font-size: clamp(21px, 5.7vw, 28px);
+        line-height: 1.18;
+      }
+
+      .scene-counter {
+        min-width: 72px;
+        padding: 7px 10px;
+        font-size: clamp(13px, 3.5vw, 16px);
+      }
+
+      .memory-photo-wrap {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        min-height: 35svh;
+        max-height: 48svh;
+        border-width: 6px;
+        border-radius: 19px;
+      }
+
+      .memory-photo {
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .memory-text {
+        min-height: 126px;
+        padding: 14px 7px 5px;
+      }
+
+      .memory-title {
+        margin-bottom: 8px;
+        font-size: clamp(26px, 7.2vw, 34px);
+        line-height: 1.22;
+      }
+
+      .memory-message {
+        max-width: 100%;
+        font-size: clamp(18px, 4.8vw, 23px);
+        line-height: 1.55;
+      }
+
+      .album-controls {
+        grid-template-columns: 56px 1fr 56px;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .album-arrow {
+        width: 54px;
+        height: 54px;
+        font-size: 31px;
+      }
+
+      .album-hint {
+        font-size: clamp(15px, 4vw, 19px);
+        line-height: 1.3;
+      }
+
+      .text-only-panel {
+        min-height: min(66svh, 585px);
+        padding: 38px 20px;
+        border-radius: 20px;
+      }
+
+      .text-scene-inner {
+        width: 98%;
+      }
+
+      .text-scene-kicker {
+        margin-bottom: 15px;
+        font-size: clamp(15px, 4.1vw, 20px);
+        line-height: 1.35;
+      }
+
+      .text-scene-title {
+        margin-bottom: 18px;
+        font-size: clamp(35px, 9.5vw, 52px);
+        line-height: 1.18;
+      }
+
+      .text-scene-message {
+        max-width: 100%;
+        font-size: clamp(20px, 5.4vw, 27px);
+        line-height: 1.62;
+      }
+
+      .proposal-actions {
+        width: min(350px, 100%);
+        height: 104px;
+        margin-top: 25px;
+      }
+
+      .proposal-accept {
+        left: 1%;
+        top: 7px;
+        min-width: 180px;
+        min-height: 60px;
+        padding: 12px 21px;
+        font-size: clamp(28px, 7.3vw, 37px);
+      }
+
+      .proposal-reject {
+        min-width: 92px;
+        min-height: 39px;
+        padding: 7px 13px;
+        font-size: clamp(15px, 3.8vw, 19px);
+      }
+
+      .proposal-note {
+        font-size: clamp(15px, 4vw, 19px);
+      }
+    }
+
+    @media (max-width: 480px) and (orientation: portrait) {
+      .memory-album {
+        top: 49%;
+        width: 99vw;
+        max-height: 97svh;
+        padding: 11px;
+      }
+
+      .memory-photo-wrap {
+        min-height: 36svh;
+        max-height: 46svh;
+      }
+
+      .memory-title {
+        font-size: clamp(27px, 7.5vw, 35px);
+      }
+
+      .memory-message {
+        font-size: clamp(18px, 5vw, 22px);
+      }
+
+      .text-only-panel {
+        min-height: min(68svh, 590px);
+        padding: 35px 16px;
+      }
+
+      .text-scene-title {
+        font-size: clamp(36px, 10vw, 50px);
+      }
+
+      .text-scene-message {
+        font-size: clamp(20px, 5.6vw, 26px);
+      }
+    }
+
+    @media (max-height: 680px) and (orientation: landscape) {
+      .memory-album {
+        top: 49%;
+        width: min(860px, 78vw);
+        max-height: 96svh;
+        padding: 9px 13px;
+      }
+
+      .memory-photo-wrap {
+        min-height: 0;
+        max-height: none;
+        aspect-ratio: 16 / 7.2;
+      }
+
+      .memory-title {
+        font-size: clamp(22px, 2.1vw, 31px);
+      }
+
+      .memory-message {
+        font-size: clamp(16px, 1.5vw, 20px);
+      }
+
+      .text-only-panel {
+        min-height: 62svh;
+        padding: 20px 34px;
+      }
+
+      .text-scene-title {
+        font-size: clamp(31px, 4vw, 51px);
+      }
+
+      .text-scene-message {
+        font-size: clamp(18px, 2vw, 25px);
+      }
+    }
+
+
+    /* ==========================================================
+       HIỆU ỨNG ĐƯỜNG CHẠY — XE MÁY GIỮ NGUYÊN
+       Chỉ các vạch đường dịch chuyển từ phải sang trái.
+       Đổi --road-motion-speed để chỉnh nhanh/chậm.
+       ========================================================== */
+
+    .road-ground {
+      --road-motion-speed: 0.82s;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .road-ground::before {
+      z-index: 2;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background-image: linear-gradient(
+        90deg,
+        #fff5e8 0 100px,
+        transparent 100px 155px
+      );
+      background-repeat: repeat-x;
+      background-size: 155px 100%;
+      background-position: 0 0;
+      animation: roadDashesMove var(--road-motion-speed) linear infinite;
+      animation-play-state: paused;
+      will-change: background-position;
+      transform: translateZ(0);
+    }
+
+    .road-ground::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      bottom: 18%;
+      height: 2px;
+      opacity: .24;
+      pointer-events: none;
+      background-image: linear-gradient(
+        90deg,
+        transparent 0 34px,
+        rgba(255, 246, 235, .72) 34px 82px,
+        transparent 82px 150px
+      );
+      background-repeat: repeat-x;
+      background-size: 150px 100%;
+      animation: roadTextureMove .62s linear infinite;
+      animation-play-state: paused;
+      will-change: background-position;
+    }
+
+    .story-scene.show .road-ground::before,
+    .story-scene.show .road-ground::after {
+      animation-play-state: running;
+    }
+
+    @keyframes roadDashesMove {
+      from { background-position: 0 0; }
+      to   { background-position: -155px 0; }
+    }
+
+    @keyframes roadTextureMove {
+      from { background-position: 0 0; }
+      to   { background-position: -150px 0; }
+    }
+
+    @media (max-width: 760px) {
+      .road-ground {
+        --road-motion-speed: 0.72s;
+      }
+
+      .road-ground::before {
+        height: 7px;
+        background-image: linear-gradient(
+          90deg,
+          #fff5e8 0 58px,
+          transparent 58px 94px
+        );
+        background-size: 94px 100%;
+        animation-name: roadDashesMoveMobile;
+      }
+
+      .road-ground::after {
+        bottom: 15%;
+        background-size: 112px 100%;
+        animation-name: roadTextureMoveMobile;
+      }
+    }
+
+    @keyframes roadDashesMoveMobile {
+      from { background-position: 0 0; }
+      to   { background-position: -94px 0; }
+    }
+
+    @keyframes roadTextureMoveMobile {
+      from { background-position: 0 0; }
+      to   { background-position: -112px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .road-ground::before,
+      .road-ground::after {
+        animation-duration: 2.2s;
+      }
+    }
+
+
+    /* ==========================================================
+       BẢN CHỈNH SỬA CHỊ LUYẾN
+       - Trái tim rõ hơn ở form nhập mật khẩu
+       - Chữ đều và đẹp hơn
+       - GỬI ĐẾN CHỊ LUYẾN
+       - Tim mờ rơi từ trên xuống
+       - Đường tím chạy từ trái sang phải
+       ========================================================== */
+
+    body {
+      font-family: "Be Vietnam Pro", Arial, Helvetica, sans-serif;
+      color: var(--brown);
+    }
+
+    h1,
+    .album-label,
+    .memory-title,
+    .text-scene-title,
+    .proposal-accept,
+    .proposal-reject {
+      font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    }
+
+    .screen {
+      background:
+        radial-gradient(circle at 49% 32%, rgba(255,255,255,.8), transparent 34%),
+        linear-gradient(135deg, #f5e7d8 0%, #ead7c2 50%, #e8d0b5 100%);
+    }
+
+    .card {
+      width: min(780px, 56vw);
+      min-width: 610px;
+      padding: 38px 48px 28px;
+      border-radius: 44px;
+      background: rgba(255, 250, 244, .9);
+      box-shadow: 0 24px 70px rgba(102, 63, 35, .16);
+    }
+
+    .badge {
+      width: 74px;
+      height: 74px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 10px 24px rgba(157, 95, 60, .12);
+    }
+
+    .heart-icon-svg {
+      width: 42px;
+      height: 42px;
+      display: block;
+      filter: drop-shadow(0 3px 6px rgba(159, 80, 61, .18));
+    }
+
+    h1 {
+      margin: 6px 0 8px;
+      font-size: clamp(46px, 4.4vw, 70px);
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: .01em;
+      color: #5a331f;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.52;
+      color: #78543d;
+    }
+
+    .ornament {
+      margin: 5px auto 14px;
+      font-size: 18px;
+      letter-spacing: .04em;
+    }
+
+    .ornament span {
+      width: 56px;
+      height: 1.5px;
+    }
+
+    .pin-display {
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .pin-box {
+      width: 70px;
+      height: 66px;
+      border-width: 2.4px;
+      border-radius: 18px;
+    }
+
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+    }
+
+    .key {
+      min-height: 66px;
+      border-radius: 19px;
+      font-size: 38px;
+      font-weight: 600;
+      background: rgba(255, 252, 247, .95);
+    }
+
+    .confirm-key {
+      font-size: 33px;
+      font-weight: 700;
+    }
+
+    .footer-line {
+      margin-top: 10px;
+      font-size: 22px;
+      letter-spacing: .01em;
+    }
+
+    .falling-hearts {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .falling-hearts .fall-heart {
+      --size: 22px;
+      --x: 50%;
+      --duration: 12s;
+      --delay: 0s;
+      --drift: 30px;
+      position: absolute;
+      left: var(--x);
+      top: -14%;
+      width: var(--size);
+      height: var(--size);
+      opacity: .18;
+      transform: rotate(45deg);
+      border-radius: 30% 0 22% 22%;
+      background: linear-gradient(135deg, rgba(223,143,143,.95), rgba(213,122,117,.9));
+      animation: heartRain var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      filter: blur(.2px);
+    }
+
+    .falling-hearts .fall-heart::before,
+    .falling-hearts .fall-heart::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .falling-hearts .fall-heart::before { left: -50%; }
+    .falling-hearts .fall-heart::after { top: -50%; }
+
+    @keyframes heartRain {
+      0% {
+        transform: translate3d(0, -18vh, 0) rotate(45deg) scale(.82);
+        opacity: 0;
+      }
+      12% {
+        opacity: .22;
+      }
+      60% {
+        opacity: .2;
+      }
+      100% {
+        transform: translate3d(var(--drift), 128vh, 0) rotate(405deg) scale(1.08);
+        opacity: 0;
+      }
+    }
+
+    .story-scene .falling-hearts {
+      z-index: 2;
+      opacity: .8;
+    }
+
+    .text-only-panel {
+      background: rgba(255, 251, 247, .9);
+      box-shadow:
+        0 18px 40px rgba(93,56,35,.1),
+        inset 0 0 0 7px rgba(255,255,255,.44);
+    }
+
+    .text-scene-inner {
+      width: min(820px, 92%);
+    }
+
+    .text-scene-kicker {
+      margin-bottom: 18px;
+      color: #cf7b62;
+      font-size: clamp(20px, 1.7vw, 28px);
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .text-scene-title {
+      margin: 0 0 20px;
+      color: #643a25;
+      font-size: clamp(44px, 5vw, 78px);
+      font-weight: 600;
+      line-height: 1.06;
+      white-space: pre-line;
+      text-wrap: balance;
+      text-align: center;
+    }
+
+    .text-scene-message {
+      max-width: 96%;
+      color: #8a5d46;
+      font-size: clamp(22px, 2.05vw, 33px);
+      font-weight: 500;
+      line-height: 1.62;
+      text-align: center;
+    }
+
+    .memory-album {
+      width: min(680px, 50vw);
+      max-height: 84vh;
+      border-radius: 32px;
+      background: rgba(255, 250, 245, .94);
+    }
+
+    .album-label {
+      font-size: clamp(22px, 1.8vw, 30px);
+    }
+
+    .scene-counter {
+      min-width: 78px;
+      padding: 8px 13px;
+      font-size: clamp(13px, 1vw, 16px);
+    }
+
+    .memory-photo-wrap {
+      border-width: 9px;
+      border-radius: 23px;
+    }
+
+    .memory-text {
+      min-height: 102px;
+      padding: 15px 8px 3px;
+    }
+
+    .memory-title {
+      margin: 0 0 9px;
+      font-size: clamp(23px, 1.95vw, 32px);
+      line-height: 1.18;
+    }
+
+    .memory-message {
+      max-width: 94%;
+      font-size: clamp(15px, 1.18vw, 19px);
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .album-controls {
+      grid-template-columns: 62px 1fr 62px;
+    }
+
+    .album-arrow {
+      width: 58px;
+      height: 58px;
+      font-size: 30px;
+    }
+
+    .album-hint {
+      font-size: clamp(15px, 1.18vw, 19px);
+      font-weight: 500;
+    }
+
+    .girlfriend-character {
+      left: clamp(20px, 3.2vw, 62px);
+      bottom: clamp(78px, 10vh, 122px);
+      width: clamp(98px, 11vw, 160px);
+      z-index: 12;
+    }
+
+    .boy-vehicle {
+      width: clamp(198px, 23vw, 360px);
+      z-index: 12;
+    }
+
+    .couple-vehicle {
+      width: clamp(212px, 24vw, 380px);
+      z-index: 12;
+    }
+
+    .road-ground {
+      --road-motion-speed: 1.02s;
+      height: 22vh;
+      min-height: 124px;
+      border-top: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.58));
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .road-ground::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 8px;
+      opacity: 1;
+      border-radius: 999px;
+      background-image: repeating-linear-gradient(90deg, #5f2d88 0 126px, transparent 126px 186px);
+      background-repeat: repeat-x;
+      background-size: 186px 100%;
+      background-position: -186px 0;
+      animation: roadPurpleMove var(--road-motion-speed) linear infinite;
+      animation-play-state: paused;
+      box-shadow: 0 0 0 1px rgba(95,45,136,.04);
+    }
+
+    .road-ground::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(50% + 2px);
+      height: 14px;
+      opacity: .22;
+      background-image: repeating-linear-gradient(90deg, rgba(95,45,136,.35) 0 126px, transparent 126px 186px);
+      background-repeat: repeat-x;
+      background-size: 186px 100%;
+      background-position: -186px 0;
+      filter: blur(3px);
+      animation: roadPurpleMove var(--road-motion-speed) linear infinite;
+      animation-play-state: paused;
+    }
+
+    .story-scene.show .road-ground::before,
+    .story-scene.show .road-ground::after {
+      animation-play-state: running;
+    }
+
+    @keyframes roadPurpleMove {
+      from { background-position: -186px 0; }
+      to { background-position: 0 0; }
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        width: min(96vw, 610px);
+        min-width: 0;
+        padding: 28px 20px 24px;
+        border-radius: 30px;
+      }
+
+      .badge {
+        width: 68px;
+        height: 68px;
+      }
+
+      .heart-icon-svg {
+        width: 38px;
+        height: 38px;
+      }
+
+      h1 {
+        font-size: clamp(44px, 11vw, 58px);
+      }
+
+      .subtitle {
+        font-size: clamp(17px, 4.1vw, 19px);
+        margin-bottom: 18px;
+      }
+
+      .pin-display {
+        gap: 8px;
+      }
+
+      .pin-box {
+        width: 48px;
+        height: 50px;
+        border-radius: 14px;
+      }
+
+      .keypad {
+        gap: 10px;
+      }
+
+      .key {
+        min-height: 58px;
+        font-size: 30px;
+      }
+
+      .footer-line {
+        font-size: clamp(18px, 4.4vw, 21px);
+      }
+
+      .memory-album {
+        top: 42%;
+        width: 92vw;
+        max-height: 84vh;
+        padding: 10px;
+        border-radius: 24px;
+      }
+
+      .album-label {
+        font-size: clamp(20px, 5.2vw, 24px);
+      }
+
+      .scene-counter {
+        font-size: 13px;
+      }
+
+      .memory-photo-wrap {
+        border-width: 5px;
+        border-radius: 17px;
+      }
+
+      .memory-title {
+        font-size: clamp(24px, 6vw, 30px);
+      }
+
+      .memory-message {
+        max-width: 98%;
+        font-size: clamp(16px, 4.1vw, 18px);
+        line-height: 1.56;
+      }
+
+      .text-only-panel {
+        min-height: min(56vh, 470px);
+        padding: 26px 16px;
+      }
+
+      .text-scene-kicker {
+        margin-bottom: 12px;
+        font-size: clamp(15px, 4.5vw, 20px);
+      }
+
+      .text-scene-title {
+        margin-bottom: 14px;
+        font-size: clamp(39px, 10vw, 52px);
+      }
+
+      .text-scene-message {
+        font-size: clamp(20px, 5vw, 24px);
+        line-height: 1.54;
+      }
+
+      .girlfriend-character {
+        left: 10px;
+        bottom: 10vh;
+        width: clamp(84px, 21vw, 110px);
+      }
+
+      .boy-vehicle {
+        width: clamp(184px, 50vw, 255px);
+      }
+
+      .couple-vehicle {
+        width: clamp(196px, 53vw, 270px);
+        transform: translate3d(2vw,0,0);
+      }
+
+      .road-ground {
+        --road-motion-speed: .86s;
+        min-height: 110px;
+      }
+
+      .road-ground::before {
+        top: 53%;
+        height: 7px;
+        background-image: repeating-linear-gradient(90deg, #5f2d88 0 72px, transparent 72px 106px);
+        background-size: 106px 100%;
+        background-position: -106px 0;
+        animation-name: roadPurpleMoveMobile;
+      }
+
+      .road-ground::after {
+        top: calc(53% + 2px);
+        height: 12px;
+        background-image: repeating-linear-gradient(90deg, rgba(95,45,136,.35) 0 72px, transparent 72px 106px);
+        background-size: 106px 100%;
+        background-position: -106px 0;
+        animation-name: roadPurpleMoveMobile;
+      }
+    }
+
+    @keyframes roadPurpleMoveMobile {
+      from { background-position: -106px 0; }
+      to { background-position: 0 0; }
+    }
+
+
+    /* ==========================================================
+       SỬA LỖI CUỐI
+       1. Đường đứt màu đen, chạy từ trái sang phải.
+       2. Nút dấu tích luôn có nền màu, không bị trắng.
+       3. Tim thật dạng ký tự ♥ rơi liên tục từ đầu đến cuối.
+       ========================================================== */
+
+    /* Ẩn các trái tim CSS cũ vì hình có thể bị méo. */
+    .falling-hearts {
+      display: none !important;
+    }
+
+    /* Nút xác nhận phải luôn nổi rõ, kể cả sau các CSS của .key. */
+    .key.confirm-key,
+    #confirmButton {
+      color: #ffffff !important;
+      background: linear-gradient(145deg, #df9a76 0%, #c97755 100%) !important;
+      border: 2px solid rgba(255,255,255,.55) !important;
+      box-shadow:
+        0 10px 22px rgba(137,77,47,.24),
+        inset 0 1px 0 rgba(255,255,255,.25) !important;
+      opacity: 1 !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 34px !important;
+      font-weight: 800 !important;
+      line-height: 1 !important;
+      text-shadow: 0 1px 1px rgba(77,34,18,.25);
+    }
+
+    .key.confirm-key:hover,
+    #confirmButton:hover {
+      background: linear-gradient(145deg, #e5a17d 0%, #c46e4d 100%) !important;
+    }
+
+    .key.confirm-key:active,
+    #confirmButton:active {
+      transform: scale(.96);
+      background: linear-gradient(145deg, #cf825f 0%, #b96042 100%) !important;
+    }
+
+    /* Toàn bộ mặt đường sáng, chỉ có các thanh đen chạy. */
+    .road-ground {
+      --road-motion-speed: .92s;
+      border-top: 0 !important;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(248,243,238,.96)) !important;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .road-ground::before {
+      content: "" !important;
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      top: 50% !important;
+      width: 100% !important;
+      height: 8px !important;
+      opacity: 1 !important;
+      border-radius: 999px !important;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #111111 0 126px,
+        transparent 126px 186px
+      ) !important;
+      background-repeat: repeat-x !important;
+      background-size: 186px 100% !important;
+      background-position: -186px 0 !important;
+      filter: none !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,.12) !important;
+      animation: blackRoadMove var(--road-motion-speed) linear infinite !important;
+      animation-play-state: paused !important;
+      will-change: background-position;
+    }
+
+    .road-ground::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      top: calc(50% + 7px) !important;
+      height: 4px !important;
+      opacity: .13 !important;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #111111 0 126px,
+        transparent 126px 186px
+      ) !important;
+      background-repeat: repeat-x !important;
+      background-size: 186px 100% !important;
+      background-position: -186px 0 !important;
+      filter: blur(3px) !important;
+      animation: blackRoadMove var(--road-motion-speed) linear infinite !important;
+      animation-play-state: paused !important;
+    }
+
+    .story-scene.show .road-ground::before,
+    .story-scene.show .road-ground::after {
+      animation-play-state: running !important;
+    }
+
+    @keyframes blackRoadMove {
+      from { background-position: -186px 0; }
+      to   { background-position: 0 0; }
+    }
+
+    /* Mưa tim thật, cố định trên toàn bộ website. */
+    .global-heart-rain {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .global-heart-rain .rain-heart {
+      --left: 50%;
+      --size: 24px;
+      --duration: 12s;
+      --delay: 0s;
+      --sway: 16px;
+      position: absolute;
+      left: var(--left);
+      top: -16vh;
+      display: block;
+      color: rgba(221, 116, 120, .30);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: var(--size);
+      line-height: 1;
+      text-shadow: 0 2px 7px rgba(162,76,82,.08);
+      transform-origin: center;
+      animation: trueHeartFall var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      will-change: transform, opacity;
+    }
+
+    .global-heart-rain .rain-heart:nth-child(3n) {
+      color: rgba(235, 153, 145, .24);
+    }
+
+    .global-heart-rain .rain-heart:nth-child(4n) {
+      color: rgba(197, 91, 106, .20);
+    }
+
+    @keyframes trueHeartFall {
+      0% {
+        transform: translate3d(0, -16vh, 0) rotate(-12deg) scale(.82);
+        opacity: 0;
+      }
+      8% {
+        opacity: .72;
+      }
+      48% {
+        transform: translate3d(var(--sway), 52vh, 0) rotate(8deg) scale(1);
+        opacity: .65;
+      }
+      92% {
+        opacity: .42;
+      }
+      100% {
+        transform: translate3d(calc(var(--sway) * -0.55), 122vh, 0) rotate(-8deg) scale(1.05);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .key.confirm-key,
+      #confirmButton {
+        font-size: 31px !important;
+      }
+
+      .road-ground {
+        --road-motion-speed: .78s;
+      }
+
+      .road-ground::before {
+        top: 53% !important;
+        height: 7px !important;
+        background-image: repeating-linear-gradient(
+          90deg,
+          #111111 0 72px,
+          transparent 72px 106px
+        ) !important;
+        background-size: 106px 100% !important;
+        background-position: -106px 0 !important;
+        animation-name: blackRoadMoveMobile !important;
+      }
+
+      .road-ground::after {
+        top: calc(53% + 6px) !important;
+        background-image: repeating-linear-gradient(
+          90deg,
+          #111111 0 72px,
+          transparent 72px 106px
+        ) !important;
+        background-size: 106px 100% !important;
+        background-position: -106px 0 !important;
+        animation-name: blackRoadMoveMobile !important;
+      }
+
+      .global-heart-rain .rain-heart {
+        color: rgba(221, 116, 120, .24);
+      }
+    }
+
+    @keyframes blackRoadMoveMobile {
+      from { background-position: -106px 0; }
+      to   { background-position: 0 0; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="global-heart-rain" aria-hidden="true">
+    <span class="rain-heart" style="--left:3%;--size:17px;--duration:10.8s;--delay:-3.2s;--sway:12px;">♥</span>
+    <span class="rain-heart" style="--left:9%;--size:25px;--duration:14.2s;--delay:-10.1s;--sway:-17px;">♥</span>
+    <span class="rain-heart" style="--left:15%;--size:14px;--duration:11.5s;--delay:-6.4s;--sway:20px;">♥</span>
+    <span class="rain-heart" style="--left:22%;--size:21px;--duration:13.7s;--delay:-1.8s;--sway:-13px;">♥</span>
+    <span class="rain-heart" style="--left:29%;--size:28px;--duration:16s;--delay:-12.6s;--sway:18px;">♥</span>
+    <span class="rain-heart" style="--left:35%;--size:16px;--duration:10.4s;--delay:-8.2s;--sway:-10px;">♥</span>
+    <span class="rain-heart" style="--left:42%;--size:23px;--duration:14.8s;--delay:-5.4s;--sway:16px;">♥</span>
+    <span class="rain-heart" style="--left:49%;--size:15px;--duration:11.9s;--delay:-9.7s;--sway:-21px;">♥</span>
+    <span class="rain-heart" style="--left:56%;--size:27px;--duration:15.4s;--delay:-2.9s;--sway:11px;">♥</span>
+    <span class="rain-heart" style="--left:63%;--size:19px;--duration:12.6s;--delay:-11.3s;--sway:-15px;">♥</span>
+    <span class="rain-heart" style="--left:70%;--size:24px;--duration:14.1s;--delay:-7.1s;--sway:19px;">♥</span>
+    <span class="rain-heart" style="--left:77%;--size:14px;--duration:10.9s;--delay:-4.5s;--sway:-11px;">♥</span>
+    <span class="rain-heart" style="--left:83%;--size:29px;--duration:16.6s;--delay:-13.4s;--sway:15px;">♥</span>
+    <span class="rain-heart" style="--left:89%;--size:18px;--duration:12.2s;--delay:-6.8s;--sway:-18px;">♥</span>
+    <span class="rain-heart" style="--left:95%;--size:22px;--duration:14.9s;--delay:-9.2s;--sway:10px;">♥</span>
+  </div>
+
+  <main class="screen" aria-label="Màn hình nhập mật khẩu">
+    <div class="paper-texture"></div>
+    <div class="falling-hearts" aria-hidden="true">
+      <span class="fall-heart" style="--x: 7%; --size: 16px; --duration: 12s; --delay: -1s; --drift: 26px;"></span>
+      <span class="fall-heart" style="--x: 16%; --size: 24px; --duration: 15s; --delay: -7s; --drift: -18px;"></span>
+      <span class="fall-heart" style="--x: 28%; --size: 18px; --duration: 13.5s; --delay: -3s; --drift: 22px;"></span>
+      <span class="fall-heart" style="--x: 39%; --size: 14px; --duration: 11.5s; --delay: -9s; --drift: 14px;"></span>
+      <span class="fall-heart" style="--x: 52%; --size: 22px; --duration: 14.5s; --delay: -5s; --drift: -25px;"></span>
+      <span class="fall-heart" style="--x: 63%; --size: 17px; --duration: 12.8s; --delay: -11s; --drift: 18px;"></span>
+      <span class="fall-heart" style="--x: 72%; --size: 26px; --duration: 16s; --delay: -2s; --drift: -22px;"></span>
+      <span class="fall-heart" style="--x: 82%; --size: 15px; --duration: 11.8s; --delay: -6s; --drift: 20px;"></span>
+      <span class="fall-heart" style="--x: 90%; --size: 20px; --duration: 14s; --delay: -10s; --drift: -14px;"></span>
+    </div>
+
+    <div class="decor envelope">
+      <div class="envelope-heart"></div>
+    </div>
+
+    <div class="decor flowers">
+      <div class="stem"></div>
+      <div class="stem"></div>
+      <div class="stem"></div>
+      <div class="flower-dot one"></div>
+      <div class="flower-dot two"></div>
+      <div class="flower-dot three"></div>
+    </div>
+
+    <div class="decor ribbon"></div>
+    <div class="decor note">For you ♡</div>
+    <div class="decor floating-heart heart-a"></div>
+    <div class="decor floating-heart heart-b"></div>
+    <div class="decor floating-heart heart-c"></div>
+
+    <section class="card" id="passwordCard">
+      <div class="badge">
+        <svg class="heart-icon-svg" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+          <path d="M12 21.15 10.55 19.83C5.4 15.17 2 12.08 2 8.3 2 5.21 4.42 2.8 7.5 2.8c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2.8C19.58 2.8 22 5.21 22 8.3c0 3.78-3.4 6.87-8.55 11.54L12 21.15Z" fill="#e88878" stroke="#c97162" stroke-width="1.25" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h1>Nhập mật khẩu</h1>
+
+      <div class="ornament" aria-hidden="true">
+        <span></span> ♥ <span></span>
+      </div>
+
+      <p class="subtitle">Hãy nhập mật mã để mở món quà bí mật</p>
+
+      <div class="pin-display" id="pinDisplay" aria-label="Mã PIN gồm 6 chữ số">
+        <div class="pin-box"><div class="pin-dot"></div></div>
+        <div class="pin-box"><div class="pin-dot"></div></div>
+        <div class="pin-box"><div class="pin-dot"></div></div>
+        <div class="pin-box"><div class="pin-dot"></div></div>
+        <div class="pin-box"><div class="pin-dot"></div></div>
+        <div class="pin-box"><div class="pin-dot"></div></div>
+      </div>
+
+      <div class="keypad" aria-label="Bàn phím số">
+        <button class="key" data-number="1">1</button>
+        <button class="key" data-number="2">2</button>
+        <button class="key" data-number="3">3</button>
+        <button class="key" data-number="4">4</button>
+        <button class="key" data-number="5">5</button>
+        <button class="key" data-number="6">6</button>
+        <button class="key" data-number="7">7</button>
+        <button class="key" data-number="8">8</button>
+        <button class="key" data-number="9">9</button>
+        <button class="key delete-key" id="deleteButton" aria-label="Xóa số cuối">⌫</button>
+        <button class="key" data-number="0">0</button>
+        <button class="key confirm-key" id="confirmButton" aria-label="Xác nhận">✓</button>
+      </div>
+
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+
+      <div class="ornament" aria-hidden="true">
+        <span></span> ♥ <span></span>
+      </div>
+
+      <div class="footer-line">Mở ra để thấy điều đặc biệt dành cho bạn ♥</div>
+    </section>
+  </main>
+
+  <section class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+    <div class="loader-spark s1"></div>
+    <div class="loader-spark s2"></div>
+    <div class="loader-spark s3"></div>
+    <div class="loader-spark s4"></div>
+
+    <div class="loader-content">
+      <div class="love-loader" id="loveLoader">
+        <div class="checkpoint-heart start is-visible" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation">
+            <path d="M12 21.15 10.55 19.83C5.4 15.17 2 12.08 2 8.3 2 5.21 4.42 2.8 7.5 2.8c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2.8C19.58 2.8 22 5.21 22 8.3c0 3.78-3.4 6.87-8.55 11.54L12 21.15Z" fill="#f06f78" stroke="#655b57" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <span class="checkpoint-stem"></span>
+        </div>
+
+        <div class="checkpoint-heart middle" id="middleHeart" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation">
+            <path d="M12 21.15 10.55 19.83C5.4 15.17 2 12.08 2 8.3 2 5.21 4.42 2.8 7.5 2.8c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2.8C19.58 2.8 22 5.21 22 8.3c0 3.78-3.4 6.87-8.55 11.54L12 21.15Z" fill="#f06f78" stroke="#655b57" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <span class="checkpoint-stem"></span>
+        </div>
+
+        <div class="checkpoint-heart end" id="endHeart" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation">
+            <path d="M12 21.15 10.55 19.83C5.4 15.17 2 12.08 2 8.3 2 5.21 4.42 2.8 7.5 2.8c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2.8C19.58 2.8 22 5.21 22 8.3c0 3.78-3.4 6.87-8.55 11.54L12 21.15Z" fill="#f06f78" stroke="#655b57" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <span class="checkpoint-stem"></span>
+        </div>
+
+        <div class="love-bubble" id="loveBubble" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation">
+            <path d="M12 21.15 10.55 19.83C5.4 15.17 2 12.08 2 8.3 2 5.21 4.42 2.8 7.5 2.8c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2.8C19.58 2.8 22 5.21 22 8.3c0 3.78-3.4 6.87-8.55 11.54L12 21.15Z" fill="#ffffff"/>
+          </svg>
+        </div>
+
+        <div class="progress-frame" id="progressFrame">
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+            <div class="progress-label" id="progressLabel">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="loading-caption" id="loadingCaption">
+        LOADING <span class="caption-heart">♥</span><span class="dots"></span>
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Cảnh xe máy và album 15 kỷ niệm -->
+  <section class="story-scene" id="storyScene" aria-hidden="true">
+    <div class="scene-cloud one"></div>
+    <div class="scene-cloud two"></div>
+    <div class="falling-hearts" aria-hidden="true">
+      <span class="fall-heart" style="--x: 10%; --size: 15px; --duration: 13s; --delay: -3s; --drift: 14px;"></span>
+      <span class="fall-heart" style="--x: 26%; --size: 18px; --duration: 16s; --delay: -12s; --drift: -18px;"></span>
+      <span class="fall-heart" style="--x: 47%; --size: 14px; --duration: 12s; --delay: -8s; --drift: 16px;"></span>
+      <span class="fall-heart" style="--x: 66%; --size: 20px; --duration: 15s; --delay: -5s; --drift: -24px;"></span>
+      <span class="fall-heart" style="--x: 83%; --size: 16px; --duration: 14s; --delay: -10s; --drift: 19px;"></span>
+    </div>
+    <div class="road-ground"></div>
+
+    <img
+      class="girlfriend-character"
+      id="girlfriendCharacter"
+      src="images/girlfriend-waiting.png"
+      alt="Bạn gái chibi đang đứng chờ"
+    />
+
+    <div class="vehicle boy-vehicle" id="boyVehicle">
+      <img
+        src="images/boy-riding-bike.png"
+        alt="Chàng trai chibi đang đi xe máy"
+      />
+    </div>
+
+    <section
+      class="memory-album"
+      id="memoryAlbum"
+      aria-label="Album gồm 15 cảnh kỷ niệm"
+    >
+      <div class="album-heading">
+        <div class="album-label">Câu chuyện của chúng ta ♥</div>
+        <div class="scene-counter" id="sceneCounter">01 / 17</div>
+      </div>
+
+      <div class="memory-content is-text-scene" id="memoryContent">
+        <div class="text-only-panel" id="textOnlyPanel">
+          <div class="text-scene-inner">
+            <div class="text-scene-kicker" id="textSceneKicker">GỬI ĐẾN CHỊ LUYẾN</div>
+            <h2 class="text-scene-title" id="textSceneTitle">Có một câu chuyện
+anh muốn kể</h2>
+            <p class="text-scene-message" id="textSceneMessage">Trước khi anh đến đón chị,
+hãy cùng anh xem lại một vài kỷ niệm nhé.</p>
+            <div class="proposal-actions" id="proposalActions" aria-label="Lựa chọn tỏ tình">
+              <button class="proposal-choice proposal-accept" id="acceptProposal" type="button">
+                Chị đồng ý
+              </button>
+              <button class="proposal-choice proposal-reject" id="rejectProposal" type="button">
+                Từ chối
+              </button>
+            </div>
+            <div class="proposal-note" id="proposalNote">Em chờ câu trả lời của chị ♥</div>
+          </div>
+        </div>
+
+        <div class="memory-photo-wrap">
+          <span class="photo-tape" aria-hidden="true"></span>
+          <img
+            class="memory-photo"
+            id="memoryPhoto"
+            src="images/memory-01.jpg"
+            alt="Ảnh kỷ niệm"
+          />
+        </div>
+
+        <div class="memory-text">
+          <h2 class="memory-title" id="memoryTitle">Kỷ niệm 01</h2>
+          <p class="memory-message" id="memoryMessage">
+            Bạn sẽ thêm lời nhắn cho cảnh này sau.
+          </p>
+        </div>
+      </div>
+
+      <div class="album-controls">
+        <button
+          class="album-arrow"
+          id="previousSceneButton"
+          type="button"
+          disabled
+          aria-label="Xem cảnh trước"
+        >
+          ←
+        </button>
+
+        <div class="album-hint" id="albumHint">
+          Bấm → để bắt đầu xem 15 kỷ niệm
+        </div>
+
+        <button
+          class="album-arrow"
+          id="nextSceneButton"
+          type="button"
+          aria-label="Xem cảnh tiếp theo"
+        >
+          →
+        </button>
+      </div>
+    </section>
+
+    <div class="vehicle couple-vehicle" id="coupleVehicle">
+      <img
+        src="images/couple-riding-bike.png"
+        alt="Cặp đôi chibi cùng đi xe máy"
+      />
+    </div>
+
+    <div class="heart-burst" id="heartBurst" aria-hidden="true"></div>
+
+    <div class="scene-end-card" id="sceneEndCard">
+      Cùng nhau đi tiếp nhé ♥
+      <small>Phần tiếp theo sẽ được nối tại đây.</small>
+    </div>
+  </section>
+
+
+  <section class="proposal-heart-scene" id="proposalHeartScene" aria-hidden="true">
+    <iframe
+      class="proposal-heart-frame"
+      id="proposalHeartFrame"
+      src="trai-tim-scene.html"
+      title="Cảnh trái tim"
+      loading="eager"
+    ></iframe>
+  </section>
+
+  <script>
+    const CORRECT_PASSWORD = "290326";
+    const MAX_LENGTH = CORRECT_PASSWORD.length;
+
+    let enteredPassword = "";
+
+    const card = document.getElementById("passwordCard");
+    const pinBoxes = [...document.querySelectorAll(".pin-box")];
+    const numberButtons = [...document.querySelectorAll("[data-number]")];
+    const deleteButton = document.getElementById("deleteButton");
+    const confirmButton = document.getElementById("confirmButton");
+    const message = document.getElementById("message");
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const loveLoader = document.getElementById("loveLoader");
+    const progressFrame = document.getElementById("progressFrame");
+    const progressLabel = document.getElementById("progressLabel");
+    const loveBubble = document.getElementById("loveBubble");
+    const middleHeart = document.getElementById("middleHeart");
+    const endHeart = document.getElementById("endHeart");
+
+    const storyScene = document.getElementById("storyScene");
+    const girlfriendCharacter = document.getElementById("girlfriendCharacter");
+    const boyVehicle = document.getElementById("boyVehicle");
+    const coupleVehicle = document.getElementById("coupleVehicle");
+    const heartBurst = document.getElementById("heartBurst");
+    const sceneEndCard = document.getElementById("sceneEndCard");
+
+    const memoryAlbum = document.getElementById("memoryAlbum");
+    const memoryContent = document.getElementById("memoryContent");
+    const memoryPhoto = document.getElementById("memoryPhoto");
+    const memoryTitle = document.getElementById("memoryTitle");
+    const memoryMessage = document.getElementById("memoryMessage");
+    const textSceneKicker = document.getElementById("textSceneKicker");
+    const textSceneTitle = document.getElementById("textSceneTitle");
+    const textSceneMessage = document.getElementById("textSceneMessage");
+    const proposalActions = document.getElementById("proposalActions");
+    const acceptProposal = document.getElementById("acceptProposal");
+    const rejectProposal = document.getElementById("rejectProposal");
+    const proposalNote = document.getElementById("proposalNote");
+    const textSceneInner = document.querySelector(".text-scene-inner");
+    const sceneCounter = document.getElementById("sceneCounter");
+    const albumHint = document.getElementById("albumHint");
+    const previousSceneButton = document.getElementById("previousSceneButton");
+    const nextSceneButton = document.getElementById("nextSceneButton");
+    const proposalHeartScene = document.getElementById("proposalHeartScene");
+    const proposalHeartFrame = document.getElementById("proposalHeartFrame");
+
+    /*
+      ================================================================
+      NƠI BẠN SỬA 17 KHUNG
+
+      type: "text"
+        - Chỉ hiển thị chữ, không hiển thị ảnh.
+
+      type: "image"
+        - Hiển thị ảnh, tiêu đề và lời nhắn.
+
+      type: "proposal"
+        - Khung tỏ tình cuối cùng.
+        - beats: 5 nhịp sẽ tự động chạy chậm.
+      ================================================================
+    */
+    const memoryScenes = [
+      {
+        type: "text",
+        kicker: "GỬI ĐẾN CHỊ LUYẾN",
+        title: "Có một câu chuyện\nanh muốn kể",
+        message:
+          "Trước khi anh đến đón chị,\n" +
+          "hãy cùng anh xem lại một vài kỷ niệm nhé."
+      },
+
+      { type: "image", image: "images/memory-01.jpg", title: "Kỷ niệm 01", message: "Bạn sẽ viết lời nhắn cho ảnh 01 tại đây." },
+      { type: "image", image: "images/memory-02.jpg", title: "Kỷ niệm 02", message: "Bạn sẽ viết lời nhắn cho ảnh 02 tại đây." },
+      { type: "image", image: "images/memory-03.jpg", title: "Kỷ niệm 03", message: "Bạn sẽ viết lời nhắn cho ảnh 03 tại đây." },
+      { type: "image", image: "images/memory-04.jpg", title: "Kỷ niệm 04", message: "Bạn sẽ viết lời nhắn cho ảnh 04 tại đây." },
+      { type: "image", image: "images/memory-05.jpg", title: "Kỷ niệm 05", message: "Bạn sẽ viết lời nhắn cho ảnh 05 tại đây." },
+      { type: "image", image: "images/memory-06.jpg", title: "Kỷ niệm 06", message: "Bạn sẽ viết lời nhắn cho ảnh 06 tại đây." },
+      { type: "image", image: "images/memory-07.jpg", title: "Kỷ niệm 07", message: "Bạn sẽ viết lời nhắn cho ảnh 07 tại đây." },
+      { type: "image", image: "images/memory-08.jpg", title: "Kỷ niệm 08", message: "Bạn sẽ viết lời nhắn cho ảnh 08 tại đây." },
+      { type: "image", image: "images/memory-09.jpg", title: "Kỷ niệm 09", message: "Bạn sẽ viết lời nhắn cho ảnh 09 tại đây." },
+      { type: "image", image: "images/memory-10.jpg", title: "Kỷ niệm 10", message: "Bạn sẽ viết lời nhắn cho ảnh 10 tại đây." },
+      { type: "image", image: "images/memory-11.jpg", title: "Kỷ niệm 11", message: "Bạn sẽ viết lời nhắn cho ảnh 11 tại đây." },
+      { type: "image", image: "images/memory-12.jpg", title: "Kỷ niệm 12", message: "Bạn sẽ viết lời nhắn cho ảnh 12 tại đây." },
+      { type: "image", image: "images/memory-13.jpg", title: "Kỷ niệm 13", message: "Bạn sẽ viết lời nhắn cho ảnh 13 tại đây." },
+      { type: "image", image: "images/memory-14.jpg", title: "Kỷ niệm 14", message: "Bạn sẽ viết lời nhắn cho ảnh 14 tại đây." },
+      { type: "image", image: "images/memory-15.jpg", title: "Kỷ niệm 15", message: "Bạn sẽ viết lời nhắn cho ảnh 15 tại đây." },
+
+      {
+        type: "proposal",
+        beatDelay: 8600,
+        beats: [
+          {
+            kicker: "Sau khoảng thời gian vừa qua...",
+            title: "Em thật sự rất cảm ơn",
+            message: "vì chị đã đến bên em."
+          },
+          {
+            kicker: "Vì có chị",
+            title: "Mọi thứ trở nên đặc biệt hơn",
+            message:
+              "Những ngày có chị đã trở thành\n" +
+              "những kỷ niệm mà em luôn trân trọng."
+          },
+          {
+            kicker: "Điều em mong muốn",
+            title: "Là được ở cạnh chị",
+            message:
+              "Quan tâm chị,\n" +
+              "và cùng chị tạo thêm thật nhiều kỷ niệm."
+          },
+          {
+            kicker: "Vì vậy...",
+            title: "Cho em được làm người yêu của chị nhé?",
+            message: "Em muốn nghiêm túc ở bên chị."
+          },
+          {
+            kicker: "Em chờ câu trả lời của chị",
+            title: "Chị làm người yêu em nhé?",
+            message: "",
+            showChoices: true
+          }
+        ]
+      }
+    ];
+
+    let currentMemoryIndex = 0;
+    let albumNavigationLocked = false;
+    let pickupStarted = false;
+    let proposalSequenceId = 0;
+
+    const wait = (milliseconds) =>
+      new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+
+    let isUnlocked = false;
+    let loadingStarted = false;
+
+    function updatePinDisplay() {
+      pinBoxes.forEach((box, index) => {
+        box.classList.toggle("filled", index < enteredPassword.length);
+      });
+    }
+
+    function clearMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+
+    function addNumber(number) {
+      if (isUnlocked || enteredPassword.length >= MAX_LENGTH) return;
+
+      enteredPassword += number;
+      clearMessage();
+      updatePinDisplay();
+
+      if (enteredPassword.length === MAX_LENGTH) {
+        setTimeout(checkPassword, 180);
+      }
+    }
+
+    function deleteNumber() {
+      if (isUnlocked) return;
+      enteredPassword = enteredPassword.slice(0, -1);
+      clearMessage();
+      updatePinDisplay();
+    }
+
+    function checkPassword() {
+      if (enteredPassword.length !== MAX_LENGTH) {
+        message.textContent = `Vui lòng nhập đủ ${MAX_LENGTH} chữ số.`;
+        message.className = "message error";
+        return;
+      }
+
+      if (enteredPassword === CORRECT_PASSWORD) {
+        isUnlocked = true;
+        message.textContent = "Mật khẩu chính xác ♥";
+        message.className = "message success";
+
+        setTimeout(() => {
+          loadingOverlay.classList.add("show");
+          loadingOverlay.setAttribute("aria-hidden", "false");
+          startLoveLoading();
+        }, 420);
+      } else {
+        message.textContent = "Mật khẩu chưa đúng, hãy thử lại nhé.";
+        message.className = "message error";
+
+        card.classList.remove("shake");
+        void card.offsetWidth;
+        card.classList.add("shake");
+
+        setTimeout(() => {
+          enteredPassword = "";
+          updatePinDisplay();
+        }, 520);
+      }
+    }
+
+    function setProgress(value) {
+      const safeValue = Math.max(0, Math.min(100, value));
+      const roundedValue = Math.round(safeValue);
+
+      loveLoader.style.setProperty("--progress", `${safeValue}%`);
+      progressLabel.textContent = `${roundedValue}%`;
+
+      /*
+        Giữ ô chat nằm trọn trong chiều rộng thanh:
+        0%  -> tâm ô chat cách mép trái nửa chiều rộng ô.
+        100% -> tâm ô chat cách mép phải nửa chiều rộng ô.
+      */
+      const bubbleWidth = loveBubble.getBoundingClientRect().width || 58;
+      const bubbleRadius = bubbleWidth / 2;
+      const pixelOffset = bubbleRadius * (1 - 2 * safeValue / 100);
+      loveBubble.style.left = `calc(${safeValue}% + ${pixelOffset}px)`;
+
+      // Tới 50% mới bật trái tim giữa; tới 100% mới bật trái tim cuối.
+      middleHeart.classList.toggle("is-visible", safeValue >= 50);
+      endHeart.classList.toggle("is-visible", safeValue >= 99.9);
+    }
+
+    function startLoveLoading() {
+      if (loadingStarted) return;
+      loadingStarted = true;
+
+      setProgress(0);
+
+      const duration = 5200;
+      const startedAt = performance.now();
+
+      function animate(now) {
+        const elapsed = now - startedAt;
+        const linear = Math.min(elapsed / duration, 1);
+
+        // Tăng đều và hơi chậm lại ở cuối để người xem nhận rõ các mốc 50% và 100%.
+        const progress = 100 * (1 - Math.pow(1 - linear, 1.18));
+        setProgress(progress);
+
+        if (linear < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          completeLoveLoading();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+
+    function animateProposalBeat(beat) {
+      textSceneInner.classList.add("beat-change");
+
+      setTimeout(() => {
+        textSceneKicker.textContent = beat.kicker || "";
+        textSceneTitle.textContent = beat.title || "";
+        textSceneMessage.textContent = beat.message || "";
+        textSceneInner.classList.remove("beat-change");
+      }, 240);
+    }
+
+    function resetProposalUi() {
+      proposalSequenceId += 1;
+      proposalActions.classList.remove("show");
+      proposalNote.classList.remove("show");
+
+      if (rejectProposal.parentElement !== proposalActions) {
+        proposalActions.appendChild(rejectProposal);
+      }
+
+      rejectProposal.classList.remove("runaway");
+      rejectProposal.style.display = "";
+      rejectProposal.style.left = "";
+      rejectProposal.style.top = "";
+      rejectProposal.style.transform = "";
+    }
+
+    async function startProposalSequence(scene) {
+      const runId = ++proposalSequenceId;
+      proposalActions.classList.remove("show");
+      proposalNote.classList.remove("show");
+
+      const beats = scene.beats || [];
+      const beatDelay = scene.beatDelay || 8600;
+
+      for (let index = 0; index < beats.length; index += 1) {
+        if (runId !== proposalSequenceId) return;
+
+        const beat = beats[index];
+        animateProposalBeat(beat);
+
+        if (beat.showChoices) {
+          setTimeout(() => {
+            if (runId !== proposalSequenceId) return;
+            proposalActions.classList.add("show");
+            proposalNote.classList.add("show");
+          }, 380);
+          return;
+        }
+
+        await wait(beat.delay || beatDelay);
+        if (runId !== proposalSequenceId) return;
+      }
+    }
+
+    function renderMemoryScene(index, direction = "right") {
+      const scene = memoryScenes[index];
+      const animationClass =
+        direction === "left" ? "switching-left" : "switching-right";
+
+      albumNavigationLocked = true;
+      resetProposalUi();
+      memoryContent.classList.add(animationClass);
+
+      setTimeout(() => {
+        const isTextScene = scene.type === "text";
+        const isProposalScene = scene.type === "proposal";
+        memoryContent.classList.toggle("is-text-scene", isTextScene || isProposalScene);
+
+        if (isTextScene) {
+          textSceneKicker.textContent = scene.kicker || "";
+          textSceneTitle.textContent = scene.title || "";
+          textSceneMessage.textContent = scene.message || "";
+        } else if (isProposalScene) {
+          textSceneKicker.textContent = "";
+          textSceneTitle.textContent = "";
+          textSceneMessage.textContent = "";
+        } else {
+          memoryPhoto.src = scene.image;
+          memoryPhoto.alt = scene.title;
+          memoryTitle.textContent = scene.title;
+          memoryMessage.textContent = scene.message;
+        }
+
+        sceneCounter.textContent = `${String(index + 1).padStart(2, "0")} / ${memoryScenes.length}`;
+
+        if (isProposalScene) {
+          previousSceneButton.disabled = true;
+          nextSceneButton.disabled = true;
+          previousSceneButton.style.opacity = ".18";
+          nextSceneButton.style.opacity = ".18";
+          previousSceneButton.style.pointerEvents = "none";
+          nextSceneButton.style.pointerEvents = "none";
+          albumHint.textContent = "Hãy chờ một chút nhé...";
+        } else {
+          previousSceneButton.disabled = index === 0;
+          nextSceneButton.disabled = false;
+          previousSceneButton.style.opacity = "";
+          nextSceneButton.style.opacity = "";
+          previousSceneButton.style.pointerEvents = "";
+          nextSceneButton.style.pointerEvents = "";
+
+          if (index === 0) {
+            albumHint.textContent = "Bấm → để bắt đầu xem 15 kỷ niệm";
+            nextSceneButton.setAttribute("aria-label", "Bắt đầu xem các ảnh kỷ niệm");
+          } else {
+            albumHint.textContent = "Bấm mũi tên để xem từng kỷ niệm";
+            nextSceneButton.setAttribute("aria-label", "Xem khung tiếp theo");
+          }
+        }
+
+        memoryContent.classList.remove(animationClass);
+        albumNavigationLocked = false;
+
+        if (isProposalScene) {
+          startProposalSequence(scene);
+        }
+      }, 220);
+    }
+
+    function showPreviousMemory() {
+      if (
+        albumNavigationLocked ||
+        pickupStarted ||
+        currentMemoryIndex <= 0 ||
+        memoryScenes[currentMemoryIndex].type === "proposal"
+      ) return;
+
+      currentMemoryIndex -= 1;
+      renderMemoryScene(currentMemoryIndex, "left");
+    }
+
+    function showNextMemory() {
+      if (albumNavigationLocked || pickupStarted) return;
+      if (memoryScenes[currentMemoryIndex].type === "proposal") return;
+
+      if (currentMemoryIndex < memoryScenes.length - 1) {
+        currentMemoryIndex += 1;
+        renderMemoryScene(currentMemoryIndex, "right");
+      }
+    }
+
+    function createHeartBurst() {
+      heartBurst.innerHTML = "";
+
+      const particles = [
+        ["-72px", "-108px", "-24deg", "23px", "0s"],
+        ["-28px", "-145px", "18deg", "31px", ".08s"],
+        ["22px", "-120px", "-10deg", "25px", ".16s"],
+        ["63px", "-160px", "25deg", "20px", ".22s"],
+        ["92px", "-92px", "-18deg", "27px", ".28s"],
+        ["2px", "-192px", "12deg", "19px", ".34s"]
+      ];
+
+      particles.forEach(([x, y, rotate, size, delay]) => {
+        const heart = document.createElement("span");
+        heart.className = "heart-particle";
+        heart.textContent = "♥";
+        heart.style.setProperty("--move-x", x);
+        heart.style.setProperty("--move-y", y);
+        heart.style.setProperty("--rotate", rotate);
+        heart.style.setProperty("--size", size);
+        heart.style.setProperty("--delay", delay);
+        heartBurst.appendChild(heart);
+      });
+    }
+
+    function showProposalHeartSceneForever() {
+      proposalHeartScene.classList.remove("fade-out");
+      proposalHeartScene.classList.add("show");
+      proposalHeartScene.setAttribute("aria-hidden", "false");
+
+      // Nạp lại iframe để hoạt ảnh trái tim bắt đầu từ đầu.
+      const heartSrc = proposalHeartFrame.getAttribute("src");
+      proposalHeartFrame.setAttribute("src", heartSrc);
+
+      // Không có lệnh tự tắt: cảnh trái tim là cảnh cuối và chạy mãi.
+    }
+
+    async function rideToGirlfriend() {
+      // 1. Chạy sang trái đón người yêu.
+      boyVehicle.classList.add("pickup");
+      await wait(2850);
+
+      // 2. Đổi sang hình hai người đã ngồi trên xe.
+      girlfriendCharacter.classList.add("boarded");
+      boyVehicle.classList.add("hidden");
+      coupleVehicle.classList.add("show");
+      createHeartBurst();
+
+      // 3. Dừng một chút để nhìn rõ khoảnh khắc lên xe, rồi cùng chạy đi.
+      await wait(1500);
+      coupleVehicle.classList.add("leave");
+
+      // 4. Khi xe đã rời cảnh, trái tim xuất hiện và chạy mãi mãi.
+      await wait(2900);
+      showProposalHeartSceneForever();
+    }
+
+    async function showStoryScene() {
+      loadingOverlay.classList.remove("show");
+      loadingOverlay.setAttribute("aria-hidden", "true");
+
+      storyScene.classList.add("show");
+      storyScene.setAttribute("aria-hidden", "false");
+
+      await wait(450);
+      girlfriendCharacter.classList.add("show");
+
+      await wait(600);
+      boyVehicle.classList.add("enter");
+
+      await wait(3000);
+      currentMemoryIndex = 0;
+      renderMemoryScene(currentMemoryIndex, "right");
+      memoryAlbum.classList.add("show");
+    }
+
+    function completeLoveLoading() {
+      setProgress(100);
+      setTimeout(showStoryScene, 1050);
+    }
+
+    function rectanglesOverlap(a, b, padding = 0) {
+      return !(
+        a.right < b.left - padding ||
+        a.left > b.right + padding ||
+        a.bottom < b.top - padding ||
+        a.top > b.bottom + padding
+      );
+    }
+
+    function moveRejectButtonRandomly(event) {
+      if (
+        !memoryScenes[currentMemoryIndex] ||
+        memoryScenes[currentMemoryIndex].type !== "proposal"
+      ) {
+        return;
+      }
+
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      const oldRect = rejectProposal.getBoundingClientRect();
+      const acceptRect = acceptProposal.getBoundingClientRect();
+      const buttonWidth = Math.max(rejectProposal.offsetWidth, 84);
+      const buttonHeight = Math.max(rejectProposal.offsetHeight, 34);
+      const margin = window.innerWidth < 600 ? 10 : 18;
+      const maxX = Math.max(margin, window.innerWidth - buttonWidth - margin);
+      const maxY = Math.max(margin, window.innerHeight - buttonHeight - margin);
+      const minDistance = window.innerWidth < 600 ? 105 : 175;
+
+      // Đưa nút ra body để nó có thể chạy khắp màn hình, không bị giới hạn trong khung nhỏ.
+      if (!rejectProposal.classList.contains("runaway")) {
+        document.body.appendChild(rejectProposal);
+        rejectProposal.classList.add("runaway");
+      }
+
+      let bestCandidate = null;
+      let bestDistance = -1;
+
+      for (let tries = 0; tries < 90; tries += 1) {
+        const x = margin + Math.random() * Math.max(1, maxX - margin);
+        const y = margin + Math.random() * Math.max(1, maxY - margin);
+
+        const candidateRect = {
+          left: x,
+          top: y,
+          right: x + buttonWidth,
+          bottom: y + buttonHeight
+        };
+
+        // Không được chạy vào hoặc quá sát nút Chị đồng ý.
+        if (rectanglesOverlap(candidateRect, acceptRect, 24)) {
+          continue;
+        }
+
+        const oldCenterX = oldRect.left + oldRect.width / 2;
+        const oldCenterY = oldRect.top + oldRect.height / 2;
+        const newCenterX = x + buttonWidth / 2;
+        const newCenterY = y + buttonHeight / 2;
+        const distance = Math.hypot(newCenterX - oldCenterX, newCenterY - oldCenterY);
+
+        // Luôn ưu tiên điểm xa nhất; nếu đủ xa thì dùng ngay.
+        if (distance > bestDistance) {
+          bestDistance = distance;
+          bestCandidate = { x, y };
+        }
+
+        if (distance >= minDistance) {
+          bestCandidate = { x, y };
+          break;
+        }
+      }
+
+      // Trường hợp màn hình quá nhỏ vẫn chọn điểm hợp lệ xa nhất tìm được.
+      if (!bestCandidate) {
+        bestCandidate = {
+          x: Math.max(margin, maxX),
+          y: Math.max(margin, maxY)
+        };
+      }
+
+      rejectProposal.style.left = `${bestCandidate.x}px`;
+      rejectProposal.style.top = `${bestCandidate.y}px`;
+      rejectProposal.style.transform = "none";
+    }
+
+    acceptProposal.addEventListener("click", async () => {
+      if (pickupStarted) return;
+
+      pickupStarted = true;
+      proposalSequenceId += 1;
+      proposalActions.classList.remove("show");
+      proposalNote.classList.remove("show");
+      rejectProposal.style.display = "none";
+      memoryAlbum.classList.add("hiding");
+
+      await wait(650);
+      memoryAlbum.classList.remove("show");
+
+      // Đón người yêu lên xe trước. Hàm này sẽ tự mở cảnh trái tim ở cuối.
+      rideToGirlfriend();
+    });
+
+    rejectProposal.addEventListener("pointerdown", moveRejectButtonRandomly);
+
+    previousSceneButton.addEventListener("click", showPreviousMemory);
+    nextSceneButton.addEventListener("click", showNextMemory);
+
+    numberButtons.forEach((button) => {
+      button.addEventListener("click", () => addNumber(button.dataset.number));
+    });
+
+    deleteButton.addEventListener("click", deleteNumber);
+    confirmButton.addEventListener("click", checkPassword);
+
+    document.addEventListener("keydown", (event) => {
+      if (/^[0-9]$/.test(event.key)) {
+        addNumber(event.key);
+      } else if (event.key === "Backspace") {
+        deleteNumber();
+      } else if (event.key === "Enter") {
+        checkPassword();
+      } else if (
+        isUnlocked &&
+        storyScene.classList.contains("show") &&
+        event.key === "ArrowLeft"
+      ) {
+        showPreviousMemory();
+      } else if (
+        isUnlocked &&
+        storyScene.classList.contains("show") &&
+        event.key === "ArrowRight"
+      ) {
+        showNextMemory();
+      } else if (
+        isUnlocked &&
+        storyScene.classList.contains("show") &&
+        event.key === "Enter" &&
+        memoryScenes[currentMemoryIndex] &&
+        memoryScenes[currentMemoryIndex].type === "proposal"
+      ) {
+        acceptProposal.click();
+      }
+    });
+
+    updatePinDisplay();
+  </script>
+</body>
+</html>
